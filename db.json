@@ -1,0 +1,17 @@
+{
+  "employee": [
+    {
+      "name": "Vishal",
+      "email": "visowmani.123@gmail.com",
+      "pass": "Vishal@1205",
+      "cpass": "Vishal@1205",
+      "dob": "2005-11-12",
+      "gender": "Male",
+      "department": "",
+      "designation": "Software Engineer",
+      "role":"admin",
+      "id": "vCa_jeBSDfg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
