@@ -9,8 +9,252 @@
       "gender": "Male",
       "department": "",
       "designation": "Software Engineer",
-      "role":"admin",
+      "role": "admin",
       "id": "vCa_jeBSDfg"
+    },
+    {
+      "name": "Arun",
+      "email": "arun@gmail.com",
+      "pass": "Arun@123",
+      "cpass": "Arun@123",
+      "dob": "2006-09-07",
+      "gender": "Male",
+      "department": "",
+      "designation": "Software Engineer",
+      "role": "employee",
+      "id": "2SS9rVm-sLg"
+    }
+  ],
+  "trainer": [
+    {
+      "trainerId": 1,
+      "trainerName": "Arun Kumar",
+      "email": "arun.kumar@company.com",
+      "department": "Web Development",
+      "experience": 8,
+      "phone": "9876543210",
+      "status": "Active",
+      "id": "J3McLMFdSbE"
+    },
+    {
+      "trainerId": 2,
+      "trainerName": "Priya Sharma",
+      "email": "priya.sharma@company.com",
+      "department": "Database",
+      "experience": 6,
+      "phone": "9876543211",
+      "status": "Active",
+      "id": "twL22onRLc8"
+    },
+    {
+      "trainerId": 3,
+      "trainerName": "Rahul Verma",
+      "email": "rahul.verma@company.com",
+      "department": "Machine Learning",
+      "experience": 10,
+      "phone": "9876543212",
+      "status": "Active",
+      "id": "Vea_BMMKqpU"
+    },
+    {
+      "trainerId": 4,
+      "trainerName": "Sneha Iyer",
+      "email": "sneha.iyer@company.com",
+      "department": "Software Development",
+      "experience": 7,
+      "phone": "9876543213",
+      "status": "Active",
+      "id": "ntQC_glK2Vk"
+    },
+    {
+      "trainerId": 5,
+      "trainerName": "Vikram Singh",
+      "email": "vikram.singh@company.com",
+      "department": "Cyber Security",
+      "experience": 9,
+      "phone": "9876543214",
+      "status": "Active",
+      "id": "oCEdhn_Ciww"
+    },
+    {
+      "trainerId": 6,
+      "trainerName": "Meera Nair",
+      "email": "meera.nair@company.com",
+      "department": "Marketing",
+      "experience": 5,
+      "phone": "9876543215",
+      "status": "Active",
+      "id": "Cpjon4SbWMw"
+    },
+    {
+      "trainerId": 7,
+      "trainerName": "Karthik Raj",
+      "email": "karthik.raj@company.com",
+      "department": "Cloud Computing",
+      "experience": 6,
+      "phone": "9876543216",
+      "status": "Active",
+      "id": "Irz7p73VuTo"
+    },
+    {
+      "trainerId": 8,
+      "trainerName": "Anjali Menon",
+      "email": "anjali.menon@company.com",
+      "department": "Data Analytics",
+      "experience": 8,
+      "phone": "9876543217",
+      "status": "Active",
+      "id": "_KjHuxDTEYA"
+    },
+    {
+      "trainerId": 9,
+      "trainerName": "Suresh Babu",
+      "email": "suresh.babu@company.com",
+      "department": "Personal Development",
+      "experience": 11,
+      "phone": "9876543218",
+      "status": "Active",
+      "id": "YpGf7bWZhSI"
+    },
+    {
+      "trainerId": 10,
+      "trainerName": "Divya Krishnan",
+      "email": "divya.krishnan@company.com",
+      "department": "Communication Skills",
+      "experience": 7,
+      "phone": "9876543219",
+      "status": "Active",
+      "id": "B_7tDwS1Xbo"
+    }
+  ],
+  "course": [
+    {
+      "courseId": 1,
+      "courseName": "HTML & CSS",
+      "department": "Web Development",
+      "id": "lfU1pqKwKkU"
+    },
+    {
+      "courseId": 2,
+      "courseName": "JavaScript",
+      "department": "Web Development",
+      "id": "BFQWKp9lnp8"
+    },
+    {
+      "courseId": 3,
+      "courseName": "SQL Server",
+      "department": "Database",
+      "id": "NyLF8xQKxVw"
+    },
+    {
+      "courseId": 4,
+      "courseName": "Machine Learning",
+      "department": "Machine Learning",
+      "id": "axbmCJoxOKY"
+    },
+    {
+      "courseId": 5,
+      "courseName": "Cyber Security",
+      "department": "Cyber Security",
+      "id": "aNAOPqSkyQM"
+    },
+    {
+      "courseId": 6,
+      "courseName": "Azure Cloud",
+      "department": "Cloud Computing",
+      "id": "FTuPuLj1mwM"
+    },
+    {
+      "courseId": 7,
+      "courseName": "Power BI",
+      "department": "Data Analytics",
+      "id": "clLsz5CM8LQ"
+    },
+    {
+      "courseId": 8,
+      "courseName": "Digital Marketing",
+      "department": "Marketing",
+      "id": "GpZVHaAv7ik"
+    },
+    {
+      "courseId": 9,
+      "courseName": "Communication Skills",
+      "department": "Communication Skills",
+      "id": "_YXjRF4ur24"
+    },
+    {
+      "courseId": 10,
+      "courseName": "Leadership",
+      "department": "Personal Development",
+      "id": "gBYYesrvKek"
+    }
+  ],
+  "training": [
+    {
+      "courseName": [
+        "Communication Skills"
+      ],
+      "courseType": "Offline",
+      "trainerName": [
+        "Anjali Menon"
+      ],
+      "duration": "3 undefined",
+      "startDate": "2026-06-17",
+      "endDate": "2026-06-18",
+      "assignedEmployeeId": "2SS9rVm-sLg",
+      "assignedEmployee": "Arun",
+      "status": "Not Started",
+      "id": "m1q-GFMqs5Y"
+    },
+    {
+      "courseName": [
+        "Azure Cloud"
+      ],
+      "courseType": "Offline",
+      "trainerName": [
+        "Arun Kumar"
+      ],
+      "duration": "3 undefined",
+      "startDate": "2026-06-18",
+      "endDate": "2026-06-19",
+      "assignedEmployeeId": "2SS9rVm-sLg",
+      "assignedEmployee": "Arun",
+      "status": "Not Started",
+      "id": "Zo0R3K74gPk"
+    },
+    {
+      "courseName": [
+        "HTML & CSS",
+        "Leadership"
+      ],
+      "courseType": "Offline",
+      "trainerName": [
+        "Karthik Raj",
+        "Anjali Menon"
+      ],
+      "duration": "4 undefined",
+      "startDate": "2026-06-20",
+      "endDate": "2026-06-22",
+      "assignedEmployeeId": "2SS9rVm-sLg",
+      "assignedEmployee": "Arun",
+      "status": "Completed",
+      "id": "iMwQPxrz4fQ"
+    },
+    {
+      "courseName": [
+        "JavaScript"
+      ],
+      "courseType": "Offline",
+      "trainerName": [
+        "Priya Sharma"
+      ],
+      "duration": "2 Hour",
+      "startDate": "2026-06-16",
+      "endDate": "2026-06-18",
+      "assignedEmployeeId": "2SS9rVm-sLg",
+      "assignedEmployee": "Arun",
+      "status": "Not Started",
+      "id": "XC9KXZjF3tI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

@@ -122,6 +122,18 @@ $('#login').on('click', async (e)=>{
             document.getElementById('loginForm').reset();
         loginModal.hide()
        $('#logemail').removeClass('is-valid');
+       console.log(data[0].role)
+       localStorage.setItem('user',JSON.stringify({
+        id:data[0].id,
+        name: data[0].name,
+        role:data[0].role
+       }));
+       console.log(localStorage.getItem('user'));
+       setTimeout(()=>{
+        if(data[0].role == 'admin'){
+          window.location.replace('../pages/employeeDash.html')
+        } 
+       },1500);
         }
         else{
             toastr.error('Incorrect Password')
@@ -206,3 +218,4 @@ $('#signup').on('click',async (e)=>{
   }
 
 })
+

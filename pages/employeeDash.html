@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="../styles/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <title>Training Management System</title>
 </head>
 <body>
@@ -25,35 +29,70 @@
            <div class="collapse navbar-collapse" id="navCollapse">
                    <ul class="navbar-nav ms-auto mx-3 align-items-center fs-5 fw-semibold">
                  <li class="cursor-pointer"><span class="bi bi-moon-fill me-2 ms-3"></span>Theme</li>
-                 <li class="ms-3 px-4 loginBtn py-2 rounded-pill" id="nav-userName">Hi Vishal!</li>
-                 <li class="ms-3 px-4 signupBtn py-2 rounded-pill cursor-pointer">Logout <span class="bi bi-door-open"></span></li>
+                 <li class="ms-3 px-4 loginBtn py-2 rounded-pill">Hi <span id="nav-username"></span>!</li>
+                 <li id="logout" class="ms-3 px-4 signupBtn py-2 rounded-pill cursor-pointer">Logout <span class="bi bi-door-open"></span></li>
                    </ul>
            </div>
         </nav>
     </header>
     <main>
-        <section class="stats container mt-5">
+        <section class="stats container mt-5" >
            <div class="row g-3">
                <div class="col-lg-8 col-12"  >
         <div class="container-fluid shadow-sm rounded-5 shadow-lg border-orange d-flex flex-column gap-2 py-4 px-4" >
-        <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm">
-            <h4>Course Assigned - <span>4</span></h4>
+          <div class="d-flex gap-2 flex-md-row flex-column">
+             <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm w-100">
+           <div class="d-flex align-items-center gap-2 text-danger">
+            <span class="bi bi-mortarboard fs-2"></span>
+            <h3  class="m-0" id="totalAssign"></h3>
+            <h5 class="m-0 mx-2">Courses Assigned</h5>
+
+           </div>
+          
             <div class="progress" style="height: 10px;">
-              <div class="progress-bar bg-success" style="width: 100%;"></div>
+              <div class="progress-bar bg-danger" style="width: 100%;"></div>
+            </div>
+        </div>
+             <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm w-100">
+           <div class="d-flex align-items-center gap-2 text-success">
+            <span class="bi bi-check-circle fs-2"></span>
+            <h3 class="m-0" id="completed"></h3>
+            <h5 class="m-0 mx-2">Courses Completed</h5>
+
+           </div>
+          
+            <div class="progress" style="height: 10px;">
+              <div class="progress-bar bg-success" id="compBar" ></div>
+            </div>
+        </div>
+          </div>
+        
+        <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm">
+           <div class="d-flex align-items-center gap-2 text-info">
+            <span class="bi bi-play-circle fs-2"></span>
+            <h3 class="m-0" id="started"></h3>
+            <h5 class="m-0 mx-2">Courses Started</h5>
+
+           </div>
+          
+            <div class="progress" style="height: 10px;">
+              <div class="progress-bar bg-info" id="startBar"></div>
             </div>
         </div>
         <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm">
-            <h4>Course Started - <span>3</span></h4>
+           <div class="d-flex align-items-center gap-2 text-warning">
+            <span class="bi bi-clock fs-2"></span>
+            <h3 class="m-0" id="notstarted"></h3>
+            <h5 class="m-0 mx-2">Courses Not-Started</h5>
+
+           </div>
+          
             <div class="progress" style="height: 10px;">
-              <div class="progress-bar bg-primary" style="width: 75%;"></div>
+              <div class="progress-bar bg-warning" id="notBar"></div>
             </div>
         </div>
-        <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm">
-            <h4>Course Not-started - <span>1</span></h4>
-            <div class="progress" style="height: 10px;">
-              <div class="progress-bar bg-warning" style="width: 25%;"></div>
-            </div>
-        </div>
+       
+        
         </div>
                </div>
                <div class="col-lg-4 col-12 ">
@@ -64,47 +103,268 @@
   <h5 class="m-0">Total</h5>
   <h3>Employees</h3>
    </div>
-   <h2 class="text-nowrap"><span class="bi bi-person me-2"></span>5</h2>
+   <h2 class="text-nowrap"><span class="bi bi-people me-2"></span>
+    <span id="empCount"></span></h2>
    </div>
                     </div>
-<div class="container-fluid rounded-4 bg-danger text-white py-4">
+<div class="container-fluid rounded-4 bg-success text-white py-4">
    <div class="d-flex justify-content-between align-items-center">
    <div class="d-flex flex-column">
   <h5 class="m-0">Total</h5>
-  <h3>Employees</h3>
+  <h3>Trainers</h3>
    </div>
-   <h2 class="text-nowrap"><span class="bi bi-person me-2"></span>5</h2>
+   <h2 class="text-nowrap"><span class="bi bi-person-video3 me-2"></span><span id="trainCount"></span></h2>
    </div>
                     </div>
-<div class="container-fluid rounded-4 bg-danger text-white py-4">
+<div class="container-fluid rounded-4 bg-warning text-white py-4">
    <div class="d-flex justify-content-between align-items-center">
    <div class="d-flex flex-column">
   <h5 class="m-0">Total</h5>
-  <h3>Employees</h3>
+  <h3>Courses</h3>
    </div>
-   <h2 class="text-nowrap"><span class="bi bi-person me-2"></span>5</h2>
+   <h2 class="text-nowrap"><span class="bi bi-journal-bookmark me-2"></span><span id="courseCount"></span></h2>
    </div>
                     </div>
-                   
-                    
                     </div>
                </div>
            </div>
         </section>
-        <!-- <section class="details container mt-4 mb-5">
+
+
+
+        <section class="details container mt-4 mb-5 ">
                <div class="row g-3">
                  <div class="col-lg-2 ">
-       <div class="container-fluid bg-info" style="height: 300px;">
-        hi
+       <div class="container-fluid border-orange rounded-4 shadow-sm bg-light-subtle d-flex flex-lg-column flex-row align-items-center justify-content-center  py-3">
+  
+       <div class="d-flex flex-lg-column flex-row gap-3">
+        
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
+          <div class="modal fade" id="filterModal">
+              <div class="modal-dialog ">
+               <div class="modal-content">
+                <div class="modal-header">
+                   <h5>Apply filter</h5>
+                   <button class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                   <label class="form-label" for="">Select Status</label>
+                   <select class="form-select" name="filterStatus" id="filterStatus">
+                    <option value=" ">Select a status</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="Started">Started</option>
+                   </select>
+                   <label class="form-label mt-2" for="">Start Date</label>
+                   <input class="form-control" type="date" id="filterStart">
+                   <label class="form-label mt-2" for="">End Date</label>
+                   <input class="form-control" type="date" id="filterEnd">
+                </div>
+                <div class="modal-footer">
+                <button class="btn btn-primary" id="filterApplyBtn">Apply</button>
+                </div>
+               </div>
+              </div>
+          </div>
+          <button class="btn btn-danger text-nowrap d-none" id="clrFilter">Clear filter</button>
+       
+           <button class="btn btn-primary" id="allBtn">All</button>
+        <button class="btn " id="completedBtn">Completed</button>
+       </div>
        </div>
                  </div>
                  <div class="col-lg-10 ">
-               <div class="container-fluid bg-warning" style="height: 300px;">
-                hi
+               <div class="container-fluid bg-light-subtle rounded-4 border-blue py-3" >
+                <div class="d-flex justify-content-between align-items-center">
+                 <p class="m-0 fs-5 fw-semibold">Training Records</p>
+                 <div class="d-flex gap-1">
+                  <button class="btn btn-primary">History</button>
+                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignModal" id="assignModalBtn" >Assign +</button>
+                 </div>
+                </div>
+                  <div class="modal fade" id="assignModal">
+                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                          <div class="modal-content px-3 py-2">
+                            <div class="modal-header">
+                               <h4>Assign Training</h4>
+                               <button class="btn btn-close ms-auto" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="assignModalForm"> 
+                                <label class="form-label" for="course">Select Courses</label>
+                               <select class="form-select" name="course" id="course" multiple>         
+                               </select>
+
+                               <label class="form-label" for="trainer">Select Trainer</label>
+                               <select class="form-select" name="trainer" id="trainer" multiple>
+                               </select>
+
+                               <label class="form-label" for="employee">Select Employee</label>
+                               <select class="form-select" name="employee" id="employee" >
+                               </select>
+
+                               <label class="form-label mt-3" for="">Course Type</label>
+                               <select class="form-select" name="ctype" id="ctype">
+                                <option value="Offline">Offline</option>
+                                <option value="Online">Online</option>
+                               </select>
+
+                               <label class="form-label mt-3" for="duration">Set the duration</label>
+                               <div class="input-group">
+                                   <input class="form-control" type="number" id="durationNum">
+                                   <select class="form-select" name="duration" id="duration" style="max-width: 120px;" >
+                                    <option value="Hour">Hour</option>
+                                    <option value="Week">Week</option>
+                                    <option value="Month">Month</option>
+                                    <option value="Year">Year</option>
+                                   </select>
+                               </div>
+                               <label class="form-label mt-3" for="startDate">Start Date</label>
+                               <input class="form-control" type="date" id="startDate"   >
+                               <label class="form-label mt-3" for="endDate">End Date</label>
+                               <input class="form-control" type="date" id="endDate"  >
+                              </form>
+                              
+                            </div>
+                            <div class="modal-footer">
+                           <button class="btn btn-primary" id="assignSubmit">Submit</button>
+                            </div>
+                          </div>  
+                      </div>
+                  </div>
+
+                   <div class="modal fade" id="updateModal">
+                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                          <div class="modal-content px-3 py-2">
+                            <div class="modal-header">
+                               <h4>Update Training</h4>
+                               <button class="btn btn-close ms-auto" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form id="updateModalForm"> 
+                                <label class="form-label" for="course">Select Courses</label>
+                               <select class="form-select" name="course" id="updateCourse" multiple>         
+                               </select>
+
+                               <label class="form-label" for="trainer">Select Trainer</label>
+                               <select class="form-select" name="trainer" id="updateTrainer" multiple>
+                               </select>
+
+                               <label class="form-label" for="employee">Select Employee</label>
+                               <select class="form-select" name="employee" id="updateEmployee" >
+                               </select>
+
+                               <label class="form-label mt-3" for="">Course Type</label>
+                               <select class="form-select" name="ctype" id="updateCtype">
+                                <option value="Offline">Offline</option>
+                                <option value="Online">Online</option>
+                               </select>
+
+                               <label class="form-label mt-3" for="duration">Set the duration</label>
+                               <div class="input-group">
+                                   <input class="form-control" type="number" id="updateDurationNum">
+                                   <select class="form-select" name="duration" id="updateDuration" style="max-width: 120px;" >
+                                    <option value="Hour">Hour</option>
+                                    <option value="Week">Week</option>
+                                    <option value="Month">Month</option>
+                                    <option value="Year">Year</option>
+                                   </select>
+                               </div>
+                               <label class="form-label mt-3" for="startDate">Start Date</label>
+                               <input class="form-control" type="date" id="updateStartDate"   >
+                               <label class="form-label mt-3" for="endDate">End Date</label>
+                               <input class="form-control" type="date" id="updateEndDate"  >
+                              </form>
+                              
+                            </div>
+                            <div class="modal-footer">
+                           <button class="btn btn-primary" id="updateSubmit">Submit</button>
+                            </div>
+                          </div>  
+
+  
+
+
+                      </div>
+                  </div>
+
+                <div class="train-parent mt-5 row g-2" id="train-parent">
+                    <div class="col-md-6 ">
+                      <div class="container border-orange rounded-4 d-flex justify-content-between ">
+                      <div class="d-flex flex-column">
+                         <p class="fs-5 my-2">Vishal</p>
+                         <p class="my-1">Courses: MongoDB,SQL</p>
+                         <p class="my-1">Start Date: 2026-05-12</p>
+                         <p class="my-1">Start Date: 2026-05-12</p>
+                         <p class="px-2 py-2 rounded-pill bg-danger-subtle  text-center text-nowrap w-fit">Not Started</p>
+                      </div>
+                      <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
+                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1"></span>
+                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1"></span>
+                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1"></span>
+                             
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="container border-orange rounded-4 d-flex justify-content-between ">
+                      <div class="d-flex flex-column">
+                         <p class="fs-5 my-2">Vishal</p>
+                         <p class="my-1">Courses: MongoDB,SQL</p>
+                         <p class="my-1">Start Date: 2026-05-12</p>
+                         <p class="my-1">Start Date: 2026-05-12</p>
+                         <p class="px-2 py-2 rounded-pill bg-danger-subtle  text-center text-nowrap w-fit">Not Started</p>
+                      </div>
+                      <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
+                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1"></span>
+                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1"></span>
+                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1"></span>
+                             
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="container border-orange rounded-4 d-flex justify-content-between ">
+                      <div class="d-flex flex-column">
+                         <p class="fs-5 my-2">Vishal</p>
+                         <p class="my-1">Courses: MongoDB,SQL</p>
+                         <p class="my-1">Start Date: 2026-05-12</p>
+                         <p class="my-1">Start Date: 2026-05-12</p>
+                         <p class="px-2 py-2 rounded-pill bg-danger-subtle  text-center text-nowrap w-fit">Not Started</p>
+                      </div>
+                      <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
+                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1"></span>
+                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1"></span>
+                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1"></span>
+                             
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <div class="container border-orange rounded-4 d-flex justify-content-between ">
+                      <div class="d-flex flex-column">
+                         <p class="fs-5 my-2">Vishal</p>
+                         <p class="my-1">Courses: MongoDB,SQL</p>
+                         <p class="my-1">Start Date: 2026-05-12</p>
+                         <p class="my-1">Start Date: 2026-05-12</p>
+                         <p class="px-2 py-2 rounded-pill bg-danger-subtle  text-center text-nowrap w-fit">Not Started</p>
+                      </div>
+                      <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
+                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1"></span>
+                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1"></span>
+                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1"></span>
+                             
+                      </div>
+                      </div>
+                    </div>
+                    
+                  
+                    
+                </div>
+                 
                </div>
                  </div>
                </div>
-        </section> -->
+        </section>
     </main>
     <script src="../scripts/empDash.js"></script>
 </body>
