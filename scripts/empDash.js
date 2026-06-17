@@ -6,6 +6,20 @@ const loginSession = JSON.parse(localStorage.getItem('user'));
 console.log(loginSession);
 $('#nav-username').text(loginSession.name);
 
+let allTab = true;
+let compTab = false;
+let filterTab = false;
+
+function refreshTab() {
+    if (allTab) {
+        getAllTrainingRecord();
+    } else if (compTab) {
+        getCompletedTrainingRecord();
+    } else if (filterTab) {
+        applyFilter();
+    }
+}
+
 toastr.options = {
         "positionClass": "toast-bottom-right",
         "showDuration": "300",
@@ -17,6 +31,9 @@ const assignModal = new bootstrap.Modal(
 )
 const filterModal = new bootstrap.Modal(
     document.getElementById('filterModal')
+)
+const updateModalDialog = new bootstrap.Modal(
+    document.getElementById('updateModal')
 )
 
 function validateDate(date){
@@ -33,6 +50,14 @@ function validateEndDate(end,start){
   endDate.setHours(0,0,0,0);
 
   return endDate>=startDate
+}
+
+function getDaysBetween(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const diffInMs = end - start;
+    return Math.floor(diffInMs / (1000 * 60 * 60 * 24)) + 1;
 }
 
 function isDuplicateCourse(existingCourses, newCourse) {
@@ -132,7 +157,7 @@ $('#assignModalBtn').on(('click'),async ()=>{
    const empSelect = document.getElementById('employee');
    empData.forEach((emp)=>{
     empSelect.innerHTML += `
-     <option value="${emp.id}">
+     <option value="${emp.name}" data-empid="${emp.id}">
           ${emp.name}
         </option>
     `
@@ -152,6 +177,7 @@ $('#assignModalBtn').on(('click'),async ()=>{
 async function updateModal(id){
    const response = await fetch(`${TRAINING_API}?id=${id}`)
    const data = await response.json()
+   console.log(data,"update data")
    const courseResponse = await fetch(COU_API);
    const courseData = await courseResponse.json()
    console.log(courseData);
@@ -181,7 +207,7 @@ async function updateModal(id){
    const empSelect = document.getElementById('updateEmployee');
    empData.forEach((emp)=>{
     empSelect.innerHTML += `
-     <option value="${emp.name}">
+     <option value="${emp.name}" data-empid="${emp.id}">
           ${emp.name}
         </option>
     `
@@ -198,12 +224,112 @@ async function updateModal(id){
    })
    currentTrainer.setChoiceByValue(data[0].trainerName);
    
-   const today = new Date().toISOString().split('T')[0];
-   $('#startDate').attr('min',today)
-   $('#endDate').attr('min',today)
-   
+   $('#updateEmployee').val(data[0].assignedEmployee)
 
-  
+   $('#updateCtype').val(data[0].courseType)
+
+   $('#updateStartDate').val(data[0].startDate);
+   $('#updateEndDate').val(data[0].endDate);
+   
+   
+   $('#updateStartDate').attr('min',$('#updateStartDate').val())
+   $('#updateEndDate').attr('min',$('#updateStartDate').val())
+   
+   $('#updateSubmit').on('click',async ()=>{
+const course = document.getElementById('updateCourse');
+    const trainer = document.getElementById('updateTrainer');
+ let updateValid = true;
+if (course.selectedOptions.length === 0) {
+    toastr.warning('Please select at least one course');
+    updateValid = false;
+}
+else if (trainer.selectedOptions.length === 0) {
+    toastr.warning('Please select at least one trainer');
+    updateValid = false;
+}
+else if(!$('#updateStartDate').val()){
+   toastr.warning('Please enter a valid start date');
+    updateValid = false;
+}
+else if(!$('#updateEndDate').val()){
+   toastr.warning('Please enter a valid end date');
+    updateValid = false;
+}
+
+if(updateValid){
+   
+const courseNames = Array.from(
+  document.getElementById("updateCourse").selectedOptions
+).map(e => e.value)
+ const trainerNames = Array.from(
+  document.getElementById("updateTrainer").selectedOptions
+).map(e => e.value)
+
+const empId = $('#updateEmployee option:selected').attr('data-empid');
+
+const courseCheck = await fetch(
+    `${TRAINING_API}?assignedEmployeeId=${empId}&isDeleted=false`
+);
+
+const courseCheckData = await courseCheck.json();
+
+let assignedCourses = [];
+
+courseCheckData.forEach(training => {
+    if (training.id !== id) {
+        assignedCourses.push(...training.courseName);
+    }
+});
+
+const duplicateCourses = courseNames.filter(course =>
+    assignedCourses.includes(course)
+);
+
+if (duplicateCourses.length > 0) {
+    toastr.error(
+        `Course already assigned: ${duplicateCourses.join(', ')}`
+    );
+    return;
+}
+
+const response = await  Swal.fire({
+    title: 'Are you sure you want to update?',
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33'
+    })
+    if(response.isConfirmed){
+        console.log(id)
+    const updateResponse = await fetch(`${TRAINING_API}/${id}`,{
+        method:"PATCH",
+        headers:{
+            'Content-type':'application/json'
+        },
+        body:JSON.stringify({
+            courseName: courseNames,
+            trainerName:trainerNames,
+           assignedEmployeeId:$('#updateEmployee option:selected').attr('data-empid'),
+           assignedEmployee:$('#updateEmployee').val(),
+           courseType: $('#updateCtype').val(),
+           startDate:$('#updateStartDate').val(),
+           endDate:$('#updateEndDate').val(),
+           duration:  getDaysBetween($('#updateStartDate').val(), $('#updateEndDate').val())+" Day"
+        })
+    })
+    toastr.success('Updated Successfully')
+     updateModalDialog.hide(); 
+     refreshTab();
+    }
+
+
+
+}
+
+
+})
+
+   
 
    $('#updateModal').on('hidden.bs.modal', function () {
      currentCourse.removeActiveItems();
@@ -216,12 +342,7 @@ async function updateModal(id){
 });
 
 }
-$('#updateSubmit').on('click',()=>{
- const courseNames = Array.from(
-  document.getElementById("updateCourse").selectedOptions
-).map(e => e.value)
-console.log(courseNames);
-})
+
 
 
 
@@ -240,15 +361,15 @@ else if (trainer.selectedOptions.length === 0) {
     toastr.warning('Please select at least one trainer');
     assignValid = false;
 }
-else if($('#durationNum').val()==""){
-    toastr.warning('Please enter a duration');
-    assignValid = false;
-}
-else if(!validateDate($('#startDate').val())||!$('#startDate').val()){
+// else if($('#durationNum').val()==""){
+//     toastr.warning('Please enter a duration');
+//     assignValid = false;
+// }
+else if(!$('#startDate').val()){
    toastr.warning('Please enter a valid start date');
     assignValid = false;
 }
-else if(!validateEndDate($('#endDate').val(),$('#startDate').val())||!$('#endDate').val()){
+else if(!$('#endDate').val()){
    toastr.warning('Please enter a valid end date');
     assignValid = false;
 }
@@ -261,19 +382,34 @@ if(assignValid){
     const trainerNames = Array.from(
   document.getElementById("trainer").selectedOptions
 ).map(e => e.value)
-const empId = $('#employee').val()
-const courseCheck = await fetch(`${TRAINING_API}?assignedEmployeeId=${empId}`)
+const empId = $('#employee option:selected').attr('data-empid');
+
+const courseCheck = await fetch(
+    `${TRAINING_API}?assignedEmployeeId=${empId}&isDeleted=false`
+);
 
 const courseCheckData = await courseCheck.json();
-const existingCourse = courseCheckData[0].courseName;
-console.log(existingCourse)
-const hasDuplicate = courseNames.some(
-    course => existingCourse.includes(course)
+
+let assignedCourses = [];
+
+if (courseCheckData && courseCheckData.length > 0) {
+    courseCheckData.forEach(training => {
+        assignedCourses.push(...training.courseName);
+    });
+}
+
+const duplicateCourses = courseNames.filter(course =>
+    assignedCourses.includes(course)
 );
-if(hasDuplicate){
-    toastr.error('Course already assigned')
+
+if (duplicateCourses.length > 0) {
+    toastr.error(
+        `Course already assigned: ${duplicateCourses.join(', ')}`
+    );
     return;
 }
+
+
 
     const trainingResponse = await fetch(TRAINING_API,{
         method:"POST",
@@ -284,12 +420,13 @@ if(hasDuplicate){
             courseName: courseNames,
             courseType : $('#ctype').val(),
            trainerName : trainerNames,
-           duration : $('#durationNum').val()+" "+$('#duration').val(),
+           duration : getDaysBetween($('#startDate').val(), $('#endDate').val())+" Day",
            startDate: $('#startDate').val(),
            endDate: $('#endDate').val(),
-           assignedEmployeeId: $('#employee').val(),
-           assignedEmployee: $('#employee').text().trim(),
-           status:'Not Started'
+           assignedEmployeeId: $('#employee option:selected').attr('data-empid'),
+           assignedEmployee: $('#employee').val(),
+           status:'Not Started',
+           isDeleted:false
         })
     })
     document.getElementById('assignModalForm').reset();
@@ -299,12 +436,63 @@ if(hasDuplicate){
 }
 })
 
+async function viewTraining(id) {
+    const response = await fetch(`${TRAINING_API}/${id}`);
+    const data = await response.json();
+
+    $('#viewEmployee').text(data.assignedEmployee);
+    $('#viewStatus').text(data.status);
+    $('#viewCourses').text(data.courseName.join(', '));
+    $('#viewCourseType').text(data.courseType);
+    $('#viewTrainers').text(data.trainerName.join(', '));
+    $('#viewDuration').text(data.duration);
+    $('#viewStartDate').text(data.startDate);
+    $('#viewEndDate').text(data.endDate);
+
+    const statusEl = document.getElementById('viewStatus');
+
+    statusEl.className = '';
+
+    if (data.status === 'Not Started') {
+        statusEl.classList.add('badge', 'bg-danger');
+    }
+    else if (data.status === 'Started') {
+        statusEl.classList.add('badge', 'bg-info');
+    }
+    else {
+        statusEl.classList.add('badge', 'bg-success');
+    }
+}
+
+async function deleteTraining(id){
+  const response = await  Swal.fire({
+    title: 'Are you sure you want to delete?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33'
+    })  
+ if(response.isConfirmed){
+    const deleteResponse = await fetch(`${TRAINING_API}/${id}`,{
+        method:"PATCH",
+        headers:{
+            'Content-type':'application/json'
+        },
+        body:JSON.stringify({
+            isDeleted:true
+        })
+    })
+    toastr.warning('Deleted Succssfully');
+    refreshTab();
+ }
+}
+
 function renderElement(parent,data){
     let html = ``
   data.forEach(t => {
     html += `
      <div class="col-md-6 ">
-      <div class="container border-orange rounded-4 d-flex justify-content-between ">
+      <div class="container border-orange orange-gradient rounded-4 d-flex justify-content-between train-card">
         <div class="d-flex flex-column">
          <p class="fs-5 my-2">${t.assignedEmployee}</p>
          <p class="my-1">Courses: ${t.courseName.join(',')}</p>
@@ -320,9 +508,11 @@ ${t.status === 'Not Started'
 </p>
        </div>
                       <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
-                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1 cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="updateModal('${t.id}')"></span>
-                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1 cursor-pointer"></span>
-                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1 cursor-pointer"></span>
+                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1 cursor-pointer icon-tooltip" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="updateModal('${t.id}')"
+                               data-tooltip="Edit"></span>
+                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1 cursor-pointer icon-tooltip" onclick="deleteTraining('${t.id}')"
+                               data-tooltip="Delete"></span>
+                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1 cursor-pointer icon-tooltip" onclick="viewTraining('${t.id}')" data-bs-toggle="modal" data-bs-target="#viewModal" data-tooltip="View"></span>
                              
                       </div>
                       </div>
@@ -334,7 +524,7 @@ ${t.status === 'Not Started'
 }
 
 async function getAllTrainingRecord(){
-  const response = await fetch(TRAINING_API)
+  const response = await fetch(`${TRAINING_API}?isDeleted=false`)
   const data = await response.json();
   getStats(data);
    
@@ -347,7 +537,7 @@ async function getAllTrainingRecord(){
 getAllTrainingRecord();
 
 async function getCompletedTrainingRecord(){
-  const response = await fetch(`${TRAINING_API}?status=Completed`)
+  const response = await fetch(`${TRAINING_API}?status=Completed&isDeleted=false`)
   const data = await response.json();
  
    
@@ -357,53 +547,126 @@ async function getCompletedTrainingRecord(){
  renderElement(trainParent,data)
 }
 
-$('#filterApplyBtn').on('click',async ()=>{
+async function applyFilter() {
     const status = $('#filterStatus').val();
     const start = $('#filterStart').val();
     const end = $('#filterEnd').val();
+
     const params = new URLSearchParams();
 
-if(status){
-    params.append('status',status);
-}
-if(start){
-    params.append('startDate_gte',start);
-}
-if(end){
-    params.append('endDate_lte',end);
+    if(status) params.append('status', status);
+    if(start) params.append('startDate_gte', start);
+    if(end) params.append('endDate_lte', end);
+
+    params.append('isDeleted', false);
+
+    const response = await fetch(`${TRAINING_API}?${params}`);
+    const data = await response.json();
+
+    renderElement(document.getElementById('train-parent'), data);
 }
 
-const response = await fetch(
-    `${TRAINING_API}?${params.toString()}`
-);
-const data = await response.json();
- const trainParent = document.getElementById('train-parent')
-  trainParent.replaceChildren();
- renderElement(trainParent,data)
-filterModal.hide();
+$('#filterApplyBtn').on('click', async () => {
+    await applyFilter();
+    filterModal.hide();
 $('#clrFilter').removeClass('d-none');
 $('#allBtn').attr('disabled',true)
 $('#completedBtn').attr('disabled',true)
-
-})
-
+    allTab = false;
+    compTab = false;
+    filterTab = true;
+});
 $('#clrFilter').on('click',()=>{
-    getAllTrainingRecord()
+    allTab =true
+compTab=false
+filterTab = false
+refreshTab()
     $('#clrFilter').addClass('d-none');
 $('#allBtn').attr('disabled',false)
 $('#completedBtn').attr('disabled',false)
+
 })
 
 $('#completedBtn').on('click',function (){
-    $('#allBtn').removeClass('btn-primary')
-    $(this).addClass('btn-primary')
-    getCompletedTrainingRecord();
+    $('#allBtn').removeClass('btn-orange-gradinet')
+    $(this).addClass('btn-orange-gradinet')
+allTab =false
+compTab=true
+filterTab = false
+refreshTab()
 })
 $('#allBtn').on('click',function (){
-    $('#completedBtn').removeClass('btn-primary')
-    $(this).addClass('btn-primary')
-    getAllTrainingRecord();
+    $('#completedBtn').removeClass('btn-orange-gradinet')
+    $(this).addClass('btn-orange-gradinet')
+    allTab =true
+compTab=false
+filterTab = false
+refreshTab()
 })
 
+$("#histBtn").on('click', async () => {
+    const response = await fetch(`${TRAINING_API}?isDeleted=true`);
+    const data = await response.json();
+
+    const parent = document.getElementById('historyParent');
+
+    let html = '';
+
+    data.forEach(t => {
+        html += `
+            <div class="col-md-6">
+                <div class="border rounded-4 p-3">
+                    <h6>${t.assignedEmployee}</h6>
+                    <p class="mb-2">
+                        ${t.courseName.join(', ')}
+                    </p>
+                    <div class="d-flex gap-2">
+                        <span
+                            class="bi bi-eye-fill fs-4 text-info cursor-pointer"
+                            onclick="viewTraining('${t.id}')"
+                            data-bs-toggle="modal"
+                            data-bs-target="#viewModal">
+                        </span>
+                        <span
+                            class="bi bi-arrow-counterclockwise fs-4 text-success cursor-pointer"
+                            onclick="restoreTraining('${t.id}')">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }); 
+    parent.innerHTML = html;
+});
+
+async function restoreTraining(id) {
+
+     const sweetResponse = await   Swal.fire({
+    title: 'Are you sure you want to restore?',
+    icon: 'info',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33'
+    })
+    if(sweetResponse.isConfirmed){
+        const response = await fetch(`${TRAINING_API}/${id}`,
+        {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                isDeleted: false
+            })
+        }
+    );
+
+        toastr.success('Training Restored');
+        $('#histBtn').trigger('click');
+        refreshTab();
+    }
+
+    
+}
 
 

@@ -112,7 +112,7 @@ $('#login').on('click', async (e)=>{
     }
 
     if(loginValid){
-    const emailCheck = await fetch(`${EMP_API}?email=${$('#logemail').val()}&role=${$('#role').val()}`)
+    const emailCheck = await fetch(`${EMP_API}?email=${$('#logemail').val()}`)
     const emailResponse = await emailCheck.json()
     if(emailResponse[0]?.email){
         const response = await fetch(`${EMP_API}?email=${$('#logemail').val()}&pass=${$('#logpass').val()}`)
@@ -133,6 +133,9 @@ $('#login').on('click', async (e)=>{
         if(data[0].role == 'admin'){
           window.location.replace('../pages/employeeDash.html')
         } 
+        else{
+          window.location.replace('../pages/userDash.html')
+        }
        },1500);
         }
         else{

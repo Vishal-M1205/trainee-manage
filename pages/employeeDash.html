@@ -21,13 +21,13 @@
     <header>
         <nav class="navbar navbar-expand-lg ">
            <div class="navbar-brand ms-4  ">
-                <h4 class="navbar-text m-0 fw-semibold"><span class="bi bi-union me-2"></span>Training Management System</h4>
+                <h5 class="navbar-text m-0 fw-semibold"><span class="bi bi-union me-2"></span>Training Management System</h4>
            </div>
            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navCollapse">
                 <span class="navbar-toggler-icon"></span>
            </button>
            <div class="collapse navbar-collapse" id="navCollapse">
-                   <ul class="navbar-nav ms-auto mx-3 align-items-center fs-5 fw-semibold">
+                   <ul class="navbar-nav ms-auto mx-3 align-items-center fs-6 fw-semibold">
                  <li class="cursor-pointer"><span class="bi bi-moon-fill me-2 ms-3"></span>Theme</li>
                  <li class="ms-3 px-4 loginBtn py-2 rounded-pill">Hi <span id="nav-username"></span>!</li>
                  <li id="logout" class="ms-3 px-4 signupBtn py-2 rounded-pill cursor-pointer">Logout <span class="bi bi-door-open"></span></li>
@@ -37,12 +37,12 @@
     </header>
     <main>
         <section class="stats container mt-5" >
-           <div class="row g-3">
+           <div class="row g-3 mx-lg-4">
                <div class="col-lg-8 col-12"  >
         <div class="container-fluid shadow-sm rounded-5 shadow-lg border-orange d-flex flex-column gap-2 py-4 px-4" >
           <div class="d-flex gap-2 flex-md-row flex-column">
-             <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm w-100">
-           <div class="d-flex align-items-center gap-2 text-danger">
+             <div class="d-flex flex-column gap-2 border blue-gradient px-3 py-4 rounded-4 shadow-sm w-100">
+           <div class="d-flex align-items-center gap-2 text-orange">
             <span class="bi bi-mortarboard fs-2"></span>
             <h3  class="m-0" id="totalAssign"></h3>
             <h5 class="m-0 mx-2">Courses Assigned</h5>
@@ -50,10 +50,10 @@
            </div>
           
             <div class="progress" style="height: 10px;">
-              <div class="progress-bar bg-danger" style="width: 100%;"></div>
+              <div class="progress-bar bg-orange" style="width: 100%;"></div>
             </div>
         </div>
-             <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm w-100">
+             <div class="d-flex flex-column gap-2 border blue-gradient  px-3 py-4 rounded-4 shadow-sm w-100">
            <div class="d-flex align-items-center gap-2 text-success">
             <span class="bi bi-check-circle fs-2"></span>
             <h3 class="m-0" id="completed"></h3>
@@ -67,8 +67,8 @@
         </div>
           </div>
         
-        <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm">
-           <div class="d-flex align-items-center gap-2 text-info">
+        <div class="d-flex flex-column gap-2 border blue-gradient  px-3 py-4 rounded-4 shadow-sm">
+           <div class="d-flex align-items-center gap-2 text-blue">
             <span class="bi bi-play-circle fs-2"></span>
             <h3 class="m-0" id="started"></h3>
             <h5 class="m-0 mx-2">Courses Started</h5>
@@ -76,11 +76,11 @@
            </div>
           
             <div class="progress" style="height: 10px;">
-              <div class="progress-bar bg-info" id="startBar"></div>
+              <div class="progress-bar bg-blue" id="startBar"></div>
             </div>
         </div>
-        <div class="d-flex flex-column gap-2 border  px-3 py-4 rounded-4 shadow-sm">
-           <div class="d-flex align-items-center gap-2 text-warning">
+        <div class="d-flex flex-column gap-2 border blue-gradient  px-3 py-4 rounded-4 shadow-sm">
+           <div class="d-flex align-items-center gap-2 text-danger">
             <span class="bi bi-clock fs-2"></span>
             <h3 class="m-0" id="notstarted"></h3>
             <h5 class="m-0 mx-2">Courses Not-Started</h5>
@@ -88,7 +88,7 @@
            </div>
           
             <div class="progress" style="height: 10px;">
-              <div class="progress-bar bg-warning" id="notBar"></div>
+              <div class="progress-bar bg-danger" id="notBar"></div>
             </div>
         </div>
        
@@ -97,32 +97,32 @@
                </div>
                <div class="col-lg-4 col-12 ">
                     <div class="container-fluid d-flex flex-lg-column align-items-center justify-content-center py-2 flex-md-row flex-column gap-2">
-<div class="container-fluid rounded-4 bg-danger text-white py-4">
+<div class="container-fluid rounded-4 count-card  bg-danger-gradient text-white py-4">
    <div class="d-flex justify-content-between align-items-center">
-   <div class="d-flex flex-column">
+   <div class="d-flex flex-column ms-lg-3">
   <h5 class="m-0">Total</h5>
-  <h3>Employees</h3>
+  <h4>Employees</h4>
    </div>
-   <h2 class="text-nowrap"><span class="bi bi-people me-2"></span>
-    <span id="empCount"></span></h2>
+   <h1 class="text-nowrap me-lg-3"><span class="bi bi-people me-2"></span>
+    <span id="empCount"></span></h1>
    </div>
                     </div>
-<div class="container-fluid rounded-4 bg-success text-white py-4">
+<div class="container-fluid rounded-4 bg-success-gradient text-white py-4 count-card">
    <div class="d-flex justify-content-between align-items-center">
-   <div class="d-flex flex-column">
+   <div class="d-flex flex-column ms-lg-3">
   <h5 class="m-0">Total</h5>
-  <h3>Trainers</h3>
+  <h4>Trainers</h4>
    </div>
-   <h2 class="text-nowrap"><span class="bi bi-person-video3 me-2"></span><span id="trainCount"></span></h2>
+   <h1 class="text-nowrap me-lg-3"><span class="bi bi-person-video3 me-2"></span><span id="trainCount"></span></h1>
    </div>
                     </div>
-<div class="container-fluid rounded-4 bg-warning text-white py-4">
-   <div class="d-flex justify-content-between align-items-center">
-   <div class="d-flex flex-column">
+<div class="container-fluid rounded-4 bg-blue-gradient text-white py-4 count-card">
+   <div class="d-flex justify-content-between align-items-center" >
+   <div class="d-flex flex-column ms-lg-3">
   <h5 class="m-0">Total</h5>
-  <h3>Courses</h3>
+  <h4>Courses</h4>
    </div>
-   <h2 class="text-nowrap"><span class="bi bi-journal-bookmark me-2"></span><span id="courseCount"></span></h2>
+   <h1 class="text-nowrap me-lg-3"><span class="bi bi-journal-bookmark me-2 "></span><span id="courseCount"></span></h1>
    </div>
                     </div>
                     </div>
@@ -132,42 +132,18 @@
 
 
 
-        <section class="details container mt-4 mb-5 ">
-               <div class="row g-3">
-                 <div class="col-lg-2 ">
-       <div class="container-fluid border-orange rounded-4 shadow-sm bg-light-subtle d-flex flex-lg-column flex-row align-items-center justify-content-center  py-3">
+        <section class="details container mt-4 mb-5 " >
+               <div class="row g-3 mx-lg-4" >
+                 <div class="col-lg-2">
+       <div class="container-fluid border-orange rounded-4 shadow-sm bg-light-subtle d-flex flex-lg-column flex-row align-items-center justify-content-center  py-3 sticky-top" style="top: 2%;">
   
        <div class="d-flex flex-lg-column flex-row gap-3">
         
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
-          <div class="modal fade" id="filterModal">
-              <div class="modal-dialog ">
-               <div class="modal-content">
-                <div class="modal-header">
-                   <h5>Apply filter</h5>
-                   <button class="btn btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                   <label class="form-label" for="">Select Status</label>
-                   <select class="form-select" name="filterStatus" id="filterStatus">
-                    <option value=" ">Select a status</option>
-                    <option value="Not Started">Not Started</option>
-                    <option value="Started">Started</option>
-                   </select>
-                   <label class="form-label mt-2" for="">Start Date</label>
-                   <input class="form-control" type="date" id="filterStart">
-                   <label class="form-label mt-2" for="">End Date</label>
-                   <input class="form-control" type="date" id="filterEnd">
-                </div>
-                <div class="modal-footer">
-                <button class="btn btn-primary" id="filterApplyBtn">Apply</button>
-                </div>
-               </div>
-              </div>
-          </div>
+          <button class="btn btn-blue" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
+          
           <button class="btn btn-danger text-nowrap d-none" id="clrFilter">Clear filter</button>
        
-           <button class="btn btn-primary" id="allBtn">All</button>
+           <button class="btn btn-orange-gradinet" id="allBtn">All</button>
         <button class="btn " id="completedBtn">Completed</button>
        </div>
        </div>
@@ -177,10 +153,26 @@
                 <div class="d-flex justify-content-between align-items-center">
                  <p class="m-0 fs-5 fw-semibold">Training Records</p>
                  <div class="d-flex gap-1">
-                  <button class="btn btn-primary">History</button>
-                  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignModal" id="assignModalBtn" >Assign +</button>
+                  <button class="btn btn-blue" id="histBtn" data-bs-toggle="modal" data-bs-target="#histModal" >History</button>
+                  <button class="btn btn-blue" data-bs-toggle="modal" data-bs-target="#assignModal" id="assignModalBtn" >Assign +</button>
                  </div>
                 </div>
+      <div class="modal fade" id="histModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Training History</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row g-3" id="historyParent"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
                   <div class="modal fade" id="assignModal">
                       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                           <div class="modal-content px-3 py-2">
@@ -208,7 +200,7 @@
                                 <option value="Online">Online</option>
                                </select>
 
-                               <label class="form-label mt-3" for="duration">Set the duration</label>
+                               <!-- <label class="form-label mt-3" for="duration">Set the duration</label>
                                <div class="input-group">
                                    <input class="form-control" type="number" id="durationNum">
                                    <select class="form-select" name="duration" id="duration" style="max-width: 120px;" >
@@ -217,11 +209,11 @@
                                     <option value="Month">Month</option>
                                     <option value="Year">Year</option>
                                    </select>
-                               </div>
+                               </div> -->
                                <label class="form-label mt-3" for="startDate">Start Date</label>
-                               <input class="form-control" type="date" id="startDate"   >
+                               <input class="form-control" type="date" id="startDate" onkeydown="return false;"  >
                                <label class="form-label mt-3" for="endDate">End Date</label>
-                               <input class="form-control" type="date" id="endDate"  >
+                               <input class="form-control" type="date" id="endDate" onkeydown="return false;"  >
                               </form>
                               
                             </div>
@@ -259,7 +251,7 @@
                                 <option value="Online">Online</option>
                                </select>
 
-                               <label class="form-label mt-3" for="duration">Set the duration</label>
+                               <!-- <label class="form-label mt-3" for="duration">Set the duration</label>
                                <div class="input-group">
                                    <input class="form-control" type="number" id="updateDurationNum">
                                    <select class="form-select" name="duration" id="updateDuration" style="max-width: 120px;" >
@@ -268,11 +260,11 @@
                                     <option value="Month">Month</option>
                                     <option value="Year">Year</option>
                                    </select>
-                               </div>
+                               </div> -->
                                <label class="form-label mt-3" for="startDate">Start Date</label>
-                               <input class="form-control" type="date" id="updateStartDate"   >
+                               <input class="form-control" type="date" id="updateStartDate" onkeydown="return false;"  >
                                <label class="form-label mt-3" for="endDate">End Date</label>
-                               <input class="form-control" type="date" id="updateEndDate"  >
+                               <input class="form-control" type="date" id="updateEndDate" onkeydown="return false;"  >
                               </form>
                               
                             </div>
@@ -286,76 +278,67 @@
 
                       </div>
                   </div>
+               
+<div class="modal fade" id="viewModal" >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
 
+      <div class="modal-header">
+        <h5 class="modal-title">Training Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <label class="fw-bold">Employee</label>
+            <p id="viewEmployee"></p>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-bold">Status</label>
+            <p id="viewStatus"></p>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-bold">Courses</label>
+            <p id="viewCourses"></p>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-bold">Course Type</label>
+            <p id="viewCourseType"></p>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-bold">Trainers</label>
+            <p id="viewTrainers"></p>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-bold">Duration</label>
+            <p id="viewDuration"></p>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-bold">Start Date</label>
+            <p id="viewStartDate"></p>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-bold">End Date</label>
+            <p id="viewEndDate"></p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
                 <div class="train-parent mt-5 row g-2" id="train-parent">
-                    <div class="col-md-6 ">
-                      <div class="container border-orange rounded-4 d-flex justify-content-between ">
-                      <div class="d-flex flex-column">
-                         <p class="fs-5 my-2">Vishal</p>
-                         <p class="my-1">Courses: MongoDB,SQL</p>
-                         <p class="my-1">Start Date: 2026-05-12</p>
-                         <p class="my-1">Start Date: 2026-05-12</p>
-                         <p class="px-2 py-2 rounded-pill bg-danger-subtle  text-center text-nowrap w-fit">Not Started</p>
-                      </div>
-                      <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
-                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1"></span>
-                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1"></span>
-                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1"></span>
-                             
-                      </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 ">
-                      <div class="container border-orange rounded-4 d-flex justify-content-between ">
-                      <div class="d-flex flex-column">
-                         <p class="fs-5 my-2">Vishal</p>
-                         <p class="my-1">Courses: MongoDB,SQL</p>
-                         <p class="my-1">Start Date: 2026-05-12</p>
-                         <p class="my-1">Start Date: 2026-05-12</p>
-                         <p class="px-2 py-2 rounded-pill bg-danger-subtle  text-center text-nowrap w-fit">Not Started</p>
-                      </div>
-                      <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
-                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1"></span>
-                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1"></span>
-                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1"></span>
-                             
-                      </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 ">
-                      <div class="container border-orange rounded-4 d-flex justify-content-between ">
-                      <div class="d-flex flex-column">
-                         <p class="fs-5 my-2">Vishal</p>
-                         <p class="my-1">Courses: MongoDB,SQL</p>
-                         <p class="my-1">Start Date: 2026-05-12</p>
-                         <p class="my-1">Start Date: 2026-05-12</p>
-                         <p class="px-2 py-2 rounded-pill bg-danger-subtle  text-center text-nowrap w-fit">Not Started</p>
-                      </div>
-                      <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
-                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1"></span>
-                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1"></span>
-                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1"></span>
-                             
-                      </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6 ">
-                      <div class="container border-orange rounded-4 d-flex justify-content-between ">
-                      <div class="d-flex flex-column">
-                         <p class="fs-5 my-2">Vishal</p>
-                         <p class="my-1">Courses: MongoDB,SQL</p>
-                         <p class="my-1">Start Date: 2026-05-12</p>
-                         <p class="my-1">Start Date: 2026-05-12</p>
-                         <p class="px-2 py-2 rounded-pill bg-danger-subtle  text-center text-nowrap w-fit">Not Started</p>
-                      </div>
-                      <div class="d-flex flex-column mt-3 align-items-center justify-content-start gap-3">
-                               <span class="bi bi-pen rounded-3 bg-warning-subtle text-warning border-warning-subtle fs-4 border border-3 px-2 py-1"></span>
-                               <span class="bi bi-trash rounded-3 bg-danger-subtle text-danger border-danger-subtle fs-4 border border-3 px-2 py-1"></span>
-                               <span class="bi bi-eye rounded-3 bg-info-subtle text-info border-info-subtle fs-4 mt-auto mb-4 border border-3 px-2 py-1"></span>
-                             
-                      </div>
-                      </div>
-                    </div>
+                    
                     
                   
                     
@@ -366,6 +349,33 @@
                </div>
         </section>
     </main>
+
+<div class="modal fade" id="filterModal">
+              <div class="modal-dialog ">
+               <div class="modal-content">
+                <div class="modal-header">
+                   <h5>Apply filter</h5>
+                   <button class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                   <label class="form-label" for="">Select Status</label>
+                   <select class="form-select" name="filterStatus" id="filterStatus">
+                    <option value=" ">Select a status</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="Started">Started</option>
+                   </select>
+                   <label class="form-label mt-2" for="">Start Date</label>
+                   <input class="form-control" type="date" id="filterStart">
+                   <label class="form-label mt-2" for="">End Date</label>
+                   <input class="form-control" type="date" id="filterEnd">
+                </div>
+                <div class="modal-footer">
+                <button class="btn btn-primary" id="filterApplyBtn">Apply</button>
+                </div>
+               </div>
+              </div>
+          </div>
+
     <script src="../scripts/empDash.js"></script>
 </body>
 </html>

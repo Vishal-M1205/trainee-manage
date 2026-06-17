@@ -23,6 +23,18 @@
       "designation": "Software Engineer",
       "role": "employee",
       "id": "2SS9rVm-sLg"
+    },
+    {
+      "name": "Harish",
+      "email": "harish@gmail.com",
+      "pass": "Harish@123",
+      "cpass": "Harish@123",
+      "dob": "2007-11-07",
+      "gender": "Male",
+      "department": "",
+      "designation": "Software Engineer",
+      "role": "employee",
+      "id": "Y3E6pJlYRJY"
     }
   ],
   "trainer": [
@@ -192,18 +204,20 @@
   "training": [
     {
       "courseName": [
-        "Communication Skills"
+        "Cyber Security"
       ],
       "courseType": "Offline",
       "trainerName": [
+        "Karthik Raj",
         "Anjali Menon"
       ],
-      "duration": "3 undefined",
+      "duration": "4 Day",
       "startDate": "2026-06-17",
-      "endDate": "2026-06-18",
+      "endDate": "2026-06-20",
       "assignedEmployeeId": "2SS9rVm-sLg",
       "assignedEmployee": "Arun",
       "status": "Not Started",
+      "isDeleted": false,
       "id": "m1q-GFMqs5Y"
     },
     {
@@ -214,12 +228,13 @@
       "trainerName": [
         "Arun Kumar"
       ],
-      "duration": "3 undefined",
+      "duration": "2 Day",
       "startDate": "2026-06-18",
       "endDate": "2026-06-19",
       "assignedEmployeeId": "2SS9rVm-sLg",
       "assignedEmployee": "Arun",
-      "status": "Not Started",
+      "status": "Completed",
+      "isDeleted": false,
       "id": "Zo0R3K74gPk"
     },
     {
@@ -227,34 +242,53 @@
         "HTML & CSS",
         "Leadership"
       ],
-      "courseType": "Offline",
+      "courseType": "Online",
       "trainerName": [
         "Karthik Raj",
         "Anjali Menon"
       ],
-      "duration": "4 undefined",
+      "duration": "3 Day",
       "startDate": "2026-06-20",
       "endDate": "2026-06-22",
       "assignedEmployeeId": "2SS9rVm-sLg",
       "assignedEmployee": "Arun",
-      "status": "Completed",
+      "status": "Started",
+      "isDeleted": false,
       "id": "iMwQPxrz4fQ"
     },
     {
       "courseName": [
         "JavaScript"
       ],
-      "courseType": "Offline",
+      "courseType": "Online",
       "trainerName": [
         "Priya Sharma"
       ],
-      "duration": "2 Hour",
+      "duration": "3 Day",
       "startDate": "2026-06-16",
       "endDate": "2026-06-18",
       "assignedEmployeeId": "2SS9rVm-sLg",
       "assignedEmployee": "Arun",
       "status": "Not Started",
+      "isDeleted": false,
       "id": "XC9KXZjF3tI"
+    },
+    {
+      "courseName": [
+        "Cyber Security"
+      ],
+      "courseType": "Online",
+      "trainerName": [
+        "Arun Kumar"
+      ],
+      "duration": "2 Day",
+      "startDate": "2026-06-17",
+      "endDate": "2026-06-18",
+      "assignedEmployee": "Harish",
+      "status": "Not Started",
+      "isDeleted": false,
+      "id": "qvJf0JCRWvI",
+      "assignedEmployeeId": "Y3E6pJlYRJY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

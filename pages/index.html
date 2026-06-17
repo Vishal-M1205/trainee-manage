@@ -18,13 +18,13 @@
     <header>
         <nav class="navbar navbar-expand-lg ">
            <div class="navbar-brand ms-4  ">
-                <h4 class="navbar-text m-0 fw-semibold"><span class="bi bi-union me-2"></span>Training Management System</h4>
+                <h5 class="navbar-text m-0 fw-semibold"><span class="bi bi-union me-2"></span>Training Management System</h5>
            </div>
            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navCollapse">
                 <span class="navbar-toggler-icon"></span>
            </button>
            <div class="collapse navbar-collapse" id="navCollapse">
-                   <ul class="navbar-nav ms-auto mx-3 align-items-center fs-5 fw-semibold">
+                   <ul class="navbar-nav ms-auto mx-3 align-items-center fs-6 fw-semibold">
                  <li class="cursor-pointer"><span class="bi bi-moon-fill me-2 ms-3"></span>Theme</li>
                  <li class="ms-3 px-4 loginBtn py-2 rounded-pill cursor-pointer" data-bs-toggle="modal" data-bs-target="#loginModal">Login</li>
                  <li class="ms-3 px-4 signupBtn py-2 rounded-pill cursor-pointer" data-bs-toggle="modal" data-bs-target="#signUpModal">Signup</li>
@@ -84,7 +84,7 @@
     </div>
   <div class="modal fade" id="loginModal">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content m-4 p-3">
+      <div class="modal-content m-4 p-3 rounded-5">
      <div class="modal-header">
         <h4>Login</h4>
         <button class="btn btn-close ms-auto" data-bs-dismiss="modal"></button>
@@ -97,12 +97,8 @@
          <label class="form-label" for="pass">Password</label>
          <input class="form-control mb-2" type="text" name="" id="logpass">
          <span id="logPassErrMsg"></span>
-        <label class="form-label" for="role">Role</label>
-        <select class="form-select mb-2" name="role" id="role">
-            <option value="employee">Employee</option>
-            <option value="admin">Admin</option>
-        </select>
-         <button id="login" class="btn btn-primary w-100 mt-2">Login</button>
+        
+         <button id="login" class="btn btn-orange w-100 mt-2">Login</button>
         </form>
          
      </div>
@@ -111,9 +107,9 @@
   </div>
 
     <main>
-        <section class="hero container my-5 pt-3  text-center d-flex align-items-center justify-content-center flex-column position-relative">
-            <span class=" bi bi-gear-fill text-primary position-absolute gear-1" ></span>
-            <span class=" bi bi-gear-fill text-primary position-absolute gear-2"></span>
+        <section class="hero container my-5 pt-3  text-center d-flex align-items-center justify-content-center flex-column position-relative ">
+            <span class=" bi bi-gear-fill text-primary position-absolute gear-1 gear-spin-1" ></span>
+            <span class=" bi bi-gear-fill text-primary position-absolute gear-2 gear-spin-2"></span>
            <h1 class="fw-bold">Training Management System</h1>
            <h2>Manage your training plans with ease.</h2>
            <div>
@@ -122,8 +118,9 @@
            </div>
         </section>
 
-        <section class="feature container  text-center d-flex flex-column align-items-center">
+        <section class="feature container  text-center d-flex flex-column align-items-center position-relative">
             <h1 >Features</h1>
+             <span class=" bi bi-gear-fill text-primary position-absolute gear-2 gear-spin-2" ></span>
             <div class="d-flex align-items-center mb-5 mt-4 justify-content-center w-75" >
                 <div class="accordion w-100 text-center" id="accordionParent" >
   <div class="accordion-item my-3 rounded-5">
