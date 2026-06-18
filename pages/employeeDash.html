@@ -28,8 +28,8 @@
            </button>
            <div class="collapse navbar-collapse" id="navCollapse">
                    <ul class="navbar-nav ms-auto mx-3 align-items-center fs-6 fw-semibold">
-                 <li class="cursor-pointer"><span class="bi bi-moon-fill me-2 ms-3"></span>Theme</li>
-                 <li class="ms-3 px-4 loginBtn py-2 rounded-pill">Hi <span id="nav-username"></span>!</li>
+                 
+                 <li class="ms-3 px-4 loginBtn py-2 rounded-pill cursor-pointer" data-bs-toggle="offcanvas" data-bs-target="#userOffcanvas" >Hi <span id="nav-username"></span>!</li>
                  <li id="logout" class="ms-3 px-4 signupBtn py-2 rounded-pill cursor-pointer">Logout <span class="bi bi-door-open"></span></li>
                    </ul>
            </div>
@@ -218,7 +218,7 @@
                               
                             </div>
                             <div class="modal-footer">
-                           <button class="btn btn-primary" id="assignSubmit">Submit</button>
+                           <button class="btn btn-orange" id="assignSubmit">Submit</button>
                             </div>
                           </div>  
                       </div>
@@ -251,16 +251,7 @@
                                 <option value="Online">Online</option>
                                </select>
 
-                               <!-- <label class="form-label mt-3" for="duration">Set the duration</label>
-                               <div class="input-group">
-                                   <input class="form-control" type="number" id="updateDurationNum">
-                                   <select class="form-select" name="duration" id="updateDuration" style="max-width: 120px;" >
-                                    <option value="Hour">Hour</option>
-                                    <option value="Week">Week</option>
-                                    <option value="Month">Month</option>
-                                    <option value="Year">Year</option>
-                                   </select>
-                               </div> -->
+                              
                                <label class="form-label mt-3" for="startDate">Start Date</label>
                                <input class="form-control" type="date" id="updateStartDate" onkeydown="return false;"  >
                                <label class="form-label mt-3" for="endDate">End Date</label>
@@ -269,7 +260,7 @@
                               
                             </div>
                             <div class="modal-footer">
-                           <button class="btn btn-primary" id="updateSubmit">Submit</button>
+                           <button class="btn btn-orange" id="updateSubmit">Submit</button>
                             </div>
                           </div>  
 
@@ -370,11 +361,70 @@
                    <input class="form-control" type="date" id="filterEnd">
                 </div>
                 <div class="modal-footer">
-                <button class="btn btn-primary" id="filterApplyBtn">Apply</button>
+                <button class="btn btn-orange" id="filterApplyBtn">Apply</button>
                 </div>
                </div>
               </div>
           </div>
+
+
+    <div class="offcanvas offcanvas-start" id="userOffcanvas">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title">User Details</h5>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas">
+        </button>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="container-fluid">
+
+            <div class="text-center mb-4">
+                <i class="bi bi-person-circle fs-1"></i>
+                <h4 id="userName"></h4>
+                <span class="badge bg-primary" id="userRole"></span>
+            </div>
+
+            <div class="row g-3">
+
+                <div class="col-12">
+                    <label class="fw-bold">Email</label>
+                    <p id="userEmail" class="mb-0"></p>
+                </div>
+
+                <div class="col-6">
+                    <label class="fw-bold">Gender</label>
+                    <p id="userGender" class="mb-0"></p>
+                </div>
+
+                <div class="col-6">
+                    <label class="fw-bold">DOB</label>
+                    <p id="userDob" class="mb-0"></p>
+                </div>
+
+                <div class="col-12">
+                    <label class="fw-bold">Department</label>
+                    <p id="userDepartment" class="mb-0"></p>
+                </div>
+
+                <div class="col-12">
+                    <label class="fw-bold">Designation</label>
+                    <p id="userDesignation" class="mb-0">
+                        
+                    </p>
+                </div>
+
+                <div class="col-12">
+                    <label class="fw-bold">Role</label>
+                    <p id="userRoleText" class="mb-0"></p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
     <script src="../scripts/empDash.js"></script>
 </body>

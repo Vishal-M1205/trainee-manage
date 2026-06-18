@@ -1,8 +1,24 @@
 const TRAINING_API = 'http://localhost:3000/training'
+const EMP_API = 'http://localhost:3000/employee'
 const loginSession = JSON.parse(localStorage.getItem('user'));
 console.log(loginSession);
 $('#nav-username').text(loginSession.name);
 
+async function getUserDetails() {
+  const response = await fetch(`${EMP_API}/${loginSession.id}`)
+  const data = await response.json()
+  $("#userName").text(data.name);
+        $("#userId").text(data.id);
+        $("#userEmail").text(data.email);
+        $("#userGender").text(data.gender);
+        $("#userDob").text(dateFormat(data.dob));
+        $("#userDepartment").text(data.department);
+        $("#userDesignation").text(data.designation);
+        $("#userRole").text(data.role);
+        $("#userRoleText").text(data.role);
+ 
+}
+getUserDetails();
 toastr.options = {
         "positionClass": "toast-bottom-right",
         "showDuration": "300",
@@ -15,6 +31,13 @@ let filterTab = false;
 const filterModal = new bootstrap.Modal(
     document.getElementById('filterModal')
 )
+
+function dateFormat(date){
+  let newDate = new Date(date)
+  newDate = newDate.toDateString().split(" ")
+   return `${newDate[1]} ${newDate[2]},${newDate[3]}`
+
+}
 
 async function getCount(data){
     $("#courseCount").text(data.length)
@@ -68,19 +91,19 @@ function renderElement(parent,data){
   data.forEach(t => {
     html += `
     <div class="col-md-6">
-  <div class="container border-orange rounded-4 p-3">
+  <div class="container border-orange rounded-4 p-3 train-card orange-gradient">
 
     <div class="d-flex justify-content-between align-items-start">
 
       <div class="flex-grow-1">
 
-        <h5 class="mb-2">${t.courseName.length} Course${t.courseName.length > 1 ? 's' : ''}   <span class="ms-2   badge
+        <h5 class="mb-2">${t.courseName.length} Course${t.courseName.length > 1 ? 's' : ''}   <span class="ms-2 rounded-pill px-2  fs-6
           ${
             t.status === 'Not Started'
-              ? 'bg-danger'
+              ? 'bg-danger-subtle text-danger' 
               : t.status === 'Started'
-              ? 'bg-info'
-              : 'bg-success'
+              ? 'bg-info-subtle text-info'
+              : 'bg-success-subtle text-success'
           }">
           ${t.status}
         </span></h5>
@@ -91,19 +114,19 @@ function renderElement(parent,data){
 
         <div class="d-flex flex-wrap gap-3 mb-2">
 
-          <small>
+          <small class="text-orange fw-bold">
             <span class="bi bi-clock me-1"></span>
             ${t.duration}
           </small>
 
           <small>
             <span class="bi bi-calendar-event me-1"></span>
-            ${t.startDate}
+            ${dateFormat(t.startDate)}
           </small>
 
           <small>
             <span class="bi bi-calendar-check me-1"></span>
-            ${t.endDate}
+            ${dateFormat(t.endDate)}
           </small>
 
         </div>
@@ -118,7 +141,7 @@ function renderElement(parent,data){
           t.status === 'Not Started'
             ? `
             <span
-              class="bi bi-play-fill fs-4 cursor-pointer"
+              class="icon-tooltip bi bi-rocket  px-2 py-1 rounded-2 start-btn fs-4 cursor-pointer" data-tooltip="Start"
               onclick="startTraining('${t.id}')">
             </span>`
             : ''
@@ -128,17 +151,19 @@ function renderElement(parent,data){
           t.status === 'Started'
             ? `
             <span
-              class="bi bi-check-circle-fill fs-4 cursor-pointer"
-              onclick="completeTraining('${t.id}')">
+              class="icon-tooltip bi bi-check-circle-fill px-2 py-1 bg-success-subtle text-success border border-success-subtle border-2 rounded-2 fs-4 cursor-pointer"
+              onclick="completeTraining('${t.id}')"
+              data-tooltip="Complete">
             </span>`
             : ''
         }
 
         <span
-          class="bi bi-eye fs-4 cursor-pointer"
+          class="icon-tooltip bi bi-eye bg-info-subtle text-info border-info-subtle px-2 py-1 border border-2 rounded-2 fs-4 cursor-pointer"
           onclick="viewTraining('${t.id}')"
           data-bs-toggle="modal"
-          data-bs-target="#viewModal">
+          data-bs-target="#viewModal"
+          data-tooltip="View">
         </span>
 
       </div>
@@ -153,21 +178,22 @@ function renderElement(parent,data){
 }
 
 async function getAllTrainingRecord() {
-    const response = await fetch(`${TRAINING_API}?assignedEmployeeId=${loginSession.id}`)
+    const response = await fetch(`${TRAINING_API}?assignedEmployeeId=${loginSession.id}&isDeleted=false`)
     const data = await response.json();
     getCount(data);
     const trainParent = document.getElementById('training-parent')
   trainParent.replaceChildren();
-  renderElement(trainParent,data)
+  renderElement(trainParent,data.reverse())
     
 }
 getAllTrainingRecord();
+
 async function getCompletedTrainingRecord() {
-    const response = await fetch(`${TRAINING_API}?assignedEmployeeId=${loginSession.id}&status=Completed`)
+    const response = await fetch(`${TRAINING_API}?assignedEmployeeId=${loginSession.id}&status=Completed&isDeleted=false`)
     const data = await response.json();
     const trainParent = document.getElementById('training-parent')
   trainParent.replaceChildren();
-  renderElement(trainParent,data)
+  renderElement(trainParent,data.reverse())
     
 }
 
@@ -183,8 +209,8 @@ async function viewTraining(id) {
     $('#viewCourseType').text(data.courseType);
     $('#viewTrainers').text(data.trainerName.join(', '));
     $('#viewDuration').text(data.duration);
-    $('#viewStartDate').text(data.startDate);
-    $('#viewEndDate').text(data.endDate);
+    $('#viewStartDate').text(dateFormat(data.startDate));
+    $('#viewEndDate').text(dateFormat(data.endDate));
 
     const statusEl = document.getElementById('viewStatus');
 
@@ -247,8 +273,8 @@ async function completeTraining(id){
 }
 
 $('#completedBtn').on('click',function (){
-    $('#allBtn').removeClass('btn-primary')
-    $(this).addClass('btn-primary')
+    $('#allBtn').removeClass('btn-orange-gradinet')
+    $(this).addClass('btn-orange-gradinet')
 allTab =false
 compTab=true
 filterTab = false
@@ -256,16 +282,20 @@ refreshTab()
 })
 
 $('#allBtn').on('click',function (){
-    $('#completedBtn').removeClass('btn-primary')
-    $(this).addClass('btn-primary')
+    $('#completedBtn').removeClass('btn-orange-gradinet')
+    $(this).addClass('btn-orange-gradinet')
     allTab =true
 compTab=false
 filterTab = false
 refreshTab()
 })
 
-$('#filterApplyBtn').on('click', async () => {
-    await applyFilter();
+$('#filterApplyBtn').on('click',  () => {
+   if($("#filterStatus").val()==" "&&!$("#filterStart").val()&&!$("#filterEnd").val()){
+         toastr.warning('Atleat Appy One Filter!')
+         return;
+   }
+     applyFilter();
     filterModal.hide();
 $('#clrFilter').attr('disabled',false);
 $('#allBtn').attr('disabled',true)
@@ -293,10 +323,12 @@ async function applyFilter() {
 
     const params = new URLSearchParams();
 
-    if(status) params.append('status', status);
+   if(status!== " "){
+     if(status) params.append('status', status);
+   }
     if(start) params.append('startDate_gte', start);
     if(end) params.append('endDate_lte', end);
-
+   
     params.append('isDeleted', false);
     params.append('assignedEmployeeId', loginSession.id);
 

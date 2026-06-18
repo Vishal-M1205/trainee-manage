@@ -25,7 +25,7 @@
            </button>
            <div class="collapse navbar-collapse" id="navCollapse">
                    <ul class="navbar-nav ms-auto mx-3 align-items-center fs-6 fw-semibold">
-                 <li class="cursor-pointer"><span class="bi bi-moon-fill me-2 ms-3"></span>Theme</li>
+                 
                  <li class="ms-3 px-4 loginBtn py-2 rounded-pill cursor-pointer" data-bs-toggle="modal" data-bs-target="#loginModal">Login</li>
                  <li class="ms-3 px-4 signupBtn py-2 rounded-pill cursor-pointer" data-bs-toggle="modal" data-bs-target="#signUpModal">Signup</li>
                    </ul>
@@ -54,7 +54,7 @@
                      <input class="form-control mb-2" type="text" name="cpass" id="cpass">
                      <span id="cpassErrMsg"></span>
                      <label class="form-label" for="dob">Date of Birth</label>
-                    <input class="form-control mb-2 " type="text" name="dob" id="dob" >
+                    <input class="form-control mb-2 " type="date" name="dob" id="dob" onkeydown="return false;" >
                     <span id="dobErrMsg"></span>
                     <label class="form-label" for="gender">Gender</label><br>
                     <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
@@ -65,15 +65,27 @@
                     <span id="genderErrMsg"></span>
                     <label class="form-label mt-2" for="dept">Department</label>
                     <select class="form-select mb-2" name="dept" id="dept">
-                        <option class="form-control" value="">Marketing</option>
-                        <option class="form-control" value="">Development</option>
+                        <option class="form-control" value="Marketing">Marketing</option>
+                        <option class="form-control" value="Development">Development</option>
                     </select>
 
                     <label class="form-label" for="desig">Designation</label>
-                    <input id="desig" class="form-control mb-2" type="text">
+                    <select id="desig" class="form-control mb-2" >
+                      <optgroup label="Development">
+                        <option value="Software Engineer">Software Engineer</option>
+                      <option value="Full Stack Developer">Full Stack Developer</option>
+<option value="Senior Software Engineer">Senior Software Engineer</option>
+                      </optgroup>
+                      <optgroup label="Marketing">
+                        <option value="Marketing Executive">Marketing Executive</option>
+<option value="Digital Marketing Specialist">Digital Marketing Specialist</option>
+<option value="SEO Analyst">SEO Analyst</option>
+                      </optgroup>
+
+                    </select>
                     <span id="desgErrMsg"></span>
                     
-                    <button class="btn btn-primary w-100 text-center" id="signup" >Sign Up</button>
+                    <button class="btn btn-orange w-100 text-center" id="signup" >Sign Up</button>
                     </form>
                      
 
@@ -131,7 +143,7 @@
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show " data-bs-parent="#accordionParent">
       <div class="accordion-body">
-        Assign training programs to employees based on their department, role, or skill requirements. Administrators can easily manage enrollments and ensure employees receive the appropriate training at the right time.
+        Assign training programs to employees with selected courses, trainers, schedules, and training types.
       </div>
     </div>
   </div>
@@ -143,31 +155,31 @@
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse " data-bs-parent="#accordionParent">
       <div class="accordion-body">
-        Monitor employee training status in real time. View course completion percentages, pending modules, and overall participation to ensure learning objectives are being met.
+        Track training status through Not Started, Started, and Completed stages in real time.
       </div>
     </div>
   </div>
   <div class="accordion-item my-3 rounded-5">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed fs-4 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" >
-        Trainer & Schedule Management
+        Dashboard Analytics
       </button>
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse " data-bs-parent="#accordionParent">
       <div class="accordion-body">
-        Organize training sessions by managing trainers, schedules, course durations, and training calendars. This helps streamline planning and avoid scheduling conflicts.
+        View key metrics including assigned trainings, completed courses, employees, trainers, and courses.
       </div>
     </div>
   </div>
   <div class="accordion-item my-3 rounded-5">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed fs-4 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" >
-        Certification & Reporting
+        Training History Management
       </button>
     </h2>
     <div id="collapseFour" class="accordion-collapse collapse " data-bs-parent="#accordionParent">
       <div class="accordion-body">
-        Generate training reports and track employee certifications upon course completion. Detailed insights help management evaluate performance and maintain compliance requirements.
+        Manage deleted training records with restore and permanent delete functionality
       </div>
     </div>
   </div>
@@ -179,13 +191,7 @@
     <footer class="footer container-fluid py-2 text-center fw-semibold fs-6">
            Task Management System
     </footer>
-    <script>
-        $('#dob').datepicker({
-            dateFormat:"yy-mm-dd",
-            maxDate:'-18Y'
-
-        })
-    </script>
+  
     <script src="../scripts/index.js">
           
     </script>

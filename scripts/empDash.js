@@ -36,21 +36,13 @@ const updateModalDialog = new bootstrap.Modal(
     document.getElementById('updateModal')
 )
 
-function validateDate(date){
-  const newDate = new Date(date);
-  const today = new Date();
-  today.setHours(0,0,0,0);
+function dateFormat(date){
+  let newDate = new Date(date)
+  newDate = newDate.toDateString().split(" ")
+   return `${newDate[1]} ${newDate[2]},${newDate[3]}`
 
-  return newDate>=today
 }
-function validateEndDate(end,start){
-  const endDate = new Date(end);
-  const startDate = new Date(start);
-  startDate.setHours(0,0,0,0);
-  endDate.setHours(0,0,0,0);
 
-  return endDate>=startDate
-}
 
 function getDaysBetween(startDate, endDate) {
     const start = new Date(startDate);
@@ -446,8 +438,8 @@ async function viewTraining(id) {
     $('#viewCourseType').text(data.courseType);
     $('#viewTrainers').text(data.trainerName.join(', '));
     $('#viewDuration').text(data.duration);
-    $('#viewStartDate').text(data.startDate);
-    $('#viewEndDate').text(data.endDate);
+    $('#viewStartDate').text(dateFormat(data.startDate));
+    $('#viewEndDate').text(dateFormat(data.endDate));
 
     const statusEl = document.getElementById('viewStatus');
 
@@ -496,8 +488,8 @@ function renderElement(parent,data){
         <div class="d-flex flex-column">
          <p class="fs-5 my-2">${t.assignedEmployee}</p>
          <p class="my-1">Courses: ${t.courseName.join(',')}</p>
-         <p class="my-1">Start Date: ${t.startDate}</p>
-         <p class="my-1">End Date: ${t.endDate}</p>
+         <p class="my-1">Start Date: ${dateFormat(t.startDate)}</p>
+         <p class="my-1">End Date: ${dateFormat(t.endDate)}</p>
         <p class="px-2 py-2 rounded-pill text-center text-nowrap w-fit
 ${t.status === 'Not Started'
     ? 'bg-danger-subtle text-danger'
@@ -527,11 +519,11 @@ async function getAllTrainingRecord(){
   const response = await fetch(`${TRAINING_API}?isDeleted=false`)
   const data = await response.json();
   getStats(data);
-   
-  console.log(response,"inside")
+  
+  
   const trainParent = document.getElementById('train-parent')
   trainParent.replaceChildren();
-  renderElement(trainParent,data)
+  renderElement(trainParent,data.reverse())
 }
 
 getAllTrainingRecord();
@@ -544,7 +536,7 @@ async function getCompletedTrainingRecord(){
   console.log(response,"inside")
   const trainParent = document.getElementById('train-parent')
   trainParent.replaceChildren();
- renderElement(trainParent,data)
+ renderElement(trainParent,data.reverse())
 }
 
 async function applyFilter() {
@@ -554,7 +546,9 @@ async function applyFilter() {
 
     const params = new URLSearchParams();
 
-    if(status) params.append('status', status);
+    if(status!== " "){
+     if(status) params.append('status', status);
+   }
     if(start) params.append('startDate_gte', start);
     if(end) params.append('endDate_lte', end);
 
@@ -566,8 +560,12 @@ async function applyFilter() {
     renderElement(document.getElementById('train-parent'), data);
 }
 
-$('#filterApplyBtn').on('click', async () => {
-    await applyFilter();
+$('#filterApplyBtn').on('click',  () => {
+      if($("#filterStatus").val()==" "&&!$("#filterStart").val()&&!$("#filterEnd").val()){
+         toastr.warning('Atleat Appy One Filter!')
+         return;
+   }
+     applyFilter();
     filterModal.hide();
 $('#clrFilter').removeClass('d-none');
 $('#allBtn').attr('disabled',true)
@@ -604,6 +602,24 @@ filterTab = false
 refreshTab()
 })
 
+async function deleteTrainingPermanent(id) {
+     const response = await  Swal.fire({
+    title: 'Are you sure you want to delete permanently?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33'
+    })  
+ if(response.isConfirmed){
+    const deleteResponse = await fetch(`${TRAINING_API}/${id}`,{
+        method:"DELETE"
+    })
+    toastr.warning('Deleted Succssfully');
+    $('#histBtn').trigger('click');
+    refreshTab();
+ }
+}
+
 $("#histBtn").on('click', async () => {
     const response = await fetch(`${TRAINING_API}?isDeleted=true`);
     const data = await response.json();
@@ -630,6 +646,10 @@ $("#histBtn").on('click', async () => {
                         <span
                             class="bi bi-arrow-counterclockwise fs-4 text-success cursor-pointer"
                             onclick="restoreTraining('${t.id}')">
+                        </span>
+                        <span
+                            class="bi bi-trash fs-4 text-danger cursor-pointer"
+                            onclick="deleteTrainingPermanent('${t.id}')">
                         </span>
                     </div>
                 </div>
@@ -668,5 +688,22 @@ async function restoreTraining(id) {
 
     
 }
+
+
+async function getUserDetails() {
+  const response = await fetch(`${EMP_API}/${loginSession.id}`)
+  const data = await response.json()
+  $("#userName").text(data.name);
+        $("#userId").text(data.id);
+        $("#userEmail").text(data.email);
+        $("#userGender").text(data.gender);
+        $("#userDob").text(dateFormat(data.dob));
+        $("#userDepartment").text(data.department);
+        $("#userDesignation").text(data.designation);
+        $("#userRole").text(data.role);
+        $("#userRoleText").text(data.role);
+ 
+}
+getUserDetails();
 
 

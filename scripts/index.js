@@ -1,4 +1,4 @@
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const emailRegex = /^[^\s@A-Z]+@[^\s@A-Z]+\.[^\s@A-Z]{2,}$/;
 const nameRegex = /^[A-Za-z\s]{3,}$/;
 const passRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9\s]).{8,15}$/
 const dateRegex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/
@@ -10,6 +10,13 @@ const loginModal = new bootstrap.Modal(document.getElementById('loginModal'))
 
 const EMP_API = 'http://localhost:3000/employee'
 
+const today = new Date();
+
+today.setFullYear(today.getFullYear() - 18);
+
+const maxDate = today.toISOString().split('T')[0];
+
+$("#dob").attr("max", maxDate);
 
 toastr.options = {
         "positionClass": "toast-bottom-right",
@@ -61,7 +68,7 @@ $('#pass').on('input',function(){
      signupValid = true;
   }
   else{
-    addInValidClass('Invalid password ','#pass','#passErrMsg');
+    addInValidClass('Invalid password. Password must be 8–15 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.  ','#pass','#passErrMsg');
     signupValid = false;
   }
 })

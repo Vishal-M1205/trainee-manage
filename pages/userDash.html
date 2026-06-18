@@ -29,8 +29,8 @@
            </button>
            <div class="collapse navbar-collapse" id="navCollapse">
                    <ul class="navbar-nav ms-auto mx-3 align-items-center fs-6 fw-semibold">
-                 <li class="cursor-pointer"><span class="bi bi-moon-fill me-2 ms-3"></span>Theme</li>
-                 <li class="ms-3 px-4 loginBtn py-2 rounded-pill">Hi <span id="nav-username"></span>!</li>
+                
+                 <li class="ms-3 px-4 loginBtn py-2 rounded-pill cursor-pointer" data-bs-toggle="offcanvas" data-bs-target="#userOffcanvas">Hi <span id="nav-username"></span>!</li>
                  <li id="logout" class="ms-3 px-4 signupBtn py-2 rounded-pill cursor-pointer">Logout <span class="bi bi-door-open"></span></li>
                    </ul>
            </div>
@@ -40,49 +40,49 @@
         <section class="count container mt-5">
             <div class="row g-2 mx-lg-4">
                 <div class="col-xl-3 col-md-6">
-<div class="container-fluid rounded-4 bg-danger text-white py-4 ">
+<div class="container-fluid rounded-4 bg-yellow-gradient count-card text-white py-4 ">
    <div class="d-flex justify-content-between align-items-center">
    <div class="d-flex flex-column ">
   <h5 class="m-0">Total</h5>
-  <h4>Courses</h4>
+  <h4>Assigned</h4>
    </div>
-   <h1 class="text-nowrap"><span class="bi bi-people me-2"></span>
+   <h1 class="text-nowrap"><span class="bi bi-journal-bookmark-fill me-2"></span>
     <span id="courseCount"></span></h1>
    </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-<div class="container-fluid rounded-4 bg-success text-white py-4 ">
+<div class="container-fluid rounded-4 bg-success-gradient count-card text-white py-4 ">
    <div class="d-flex justify-content-between align-items-center">
    <div class="d-flex flex-column">
   <h5 class="m-0">Courses</h5>
   <h4>Completed</h4>
    </div>
-   <h1 class="text-nowrap"><span class="bi bi-people me-2"></span>
+   <h1 class="text-nowrap"><span class="bi bi-check-circle-fill me-2"></span>
     <span id="compCount"></span></h1>
    </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-<div class="container-fluid rounded-4 bg-info text-white py-4 ">
+<div class="container-fluid rounded-4 bg-blue-gradient count-card text-white py-4 ">
    <div class="d-flex justify-content-between align-items-center">
    <div class="d-flex flex-column">
   <h5 class="m-0">Courses</h5>
   <h4>Started</h4>
    </div>
-   <h1 class="text-nowrap"><span class="bi bi-people me-2"></span>
+   <h1 class="text-nowrap"><span class="bi bi-play-circle-fill me-2"></span>
     <span id="startCount"></span></h1>
    </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-<div class="container-fluid rounded-4 bg-warning text-white py-4 ">
+<div class="container-fluid rounded-4 bg-danger-gradient text-white py-4 count-card">
    <div class="d-flex justify-content-between align-items-center">
    <div class="d-flex flex-column">
   <h5 class="m-0">Courses</h5>
   <h4>Not Started</h4>
    </div>
-   <h1 class="text-nowrap"><span class="bi bi-people me-2"></span>
+   <h1 class="text-nowrap"><span class="bi bi-hourglass-split me-2"></span>
     <span id="notCount">4</span></h1>
    </div>
                     </div>
@@ -99,11 +99,11 @@
         <p class="m-0 fs-3 fw-semibold">Training Records</p>
                <div>
                 <div class="btn-group">
-               <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
+               <button class="btn btn-blue" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
                  <button class="btn btn-danger text-nowrap " id="clrFilter" disabled>X</button>
                 </div>
                 
-   <button class="btn btn-primary px-4" id="allBtn">All</button>
+   <button class="btn btn-orange-gradinet px-4" id="allBtn">All</button>
         <button class="btn " id="completedBtn">Completed</button>
                </div>
                 </div>
@@ -204,6 +204,64 @@
           </div>
 
     </main>
+ <div class="offcanvas offcanvas-start" id="userOffcanvas">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title">User Details</h5>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas">
+        </button>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="container-fluid">
+
+            <div class="text-center mb-4">
+                <i class="bi bi-person-circle fs-1"></i>
+                <h4 id="userName"></h4>
+                <span class="badge bg-primary" id="userRole"></span>
+            </div>
+
+            <div class="row g-3">
+
+                <div class="col-12">
+                    <label class="fw-bold">Email</label>
+                    <p id="userEmail" class="mb-0"></p>
+                </div>
+
+                <div class="col-6">
+                    <label class="fw-bold">Gender</label>
+                    <p id="userGender" class="mb-0"></p>
+                </div>
+
+                <div class="col-6">
+                    <label class="fw-bold">DOB</label>
+                    <p id="userDob" class="mb-0"></p>
+                </div>
+
+                <div class="col-12">
+                    <label class="fw-bold">Department</label>
+                    <p id="userDepartment" class="mb-0"></p>
+                </div>
+
+                <div class="col-12">
+                    <label class="fw-bold">Designation</label>
+                    <p id="userDesignation" class="mb-0">
+                        
+                    </p>
+                </div>
+
+                <div class="col-12">
+                    <label class="fw-bold">Role</label>
+                    <p id="userRoleText" class="mb-0"></p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
     <script src="../scripts/userDash.js"></script>
 </body>
 </html>

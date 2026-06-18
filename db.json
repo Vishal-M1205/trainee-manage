@@ -7,8 +7,8 @@
       "cpass": "Vishal@1205",
       "dob": "2005-11-12",
       "gender": "Male",
-      "department": "",
-      "designation": "Software Engineer",
+      "department": "Development",
+      "designation": "Manager",
       "role": "admin",
       "id": "vCa_jeBSDfg"
     },
@@ -19,7 +19,7 @@
       "cpass": "Arun@123",
       "dob": "2006-09-07",
       "gender": "Male",
-      "department": "",
+      "department": "Development",
       "designation": "Software Engineer",
       "role": "employee",
       "id": "2SS9rVm-sLg"
@@ -31,10 +31,22 @@
       "cpass": "Harish@123",
       "dob": "2007-11-07",
       "gender": "Male",
-      "department": "",
+      "department": "Development",
       "designation": "Software Engineer",
       "role": "employee",
       "id": "Y3E6pJlYRJY"
+    },
+    {
+      "name": "Tamil",
+      "email": "tamil@gmail.com",
+      "pass": "Tamil@123",
+      "cpass": "Tamil@123",
+      "dob": "2005-08-27",
+      "gender": "Male",
+      "department": "Marketing",
+      "designation": "Digital Marketing Specialist",
+      "role": "employee",
+      "id": "lpPxf5JR2V4"
     }
   ],
   "trainer": [
@@ -222,23 +234,6 @@
     },
     {
       "courseName": [
-        "Azure Cloud"
-      ],
-      "courseType": "Offline",
-      "trainerName": [
-        "Arun Kumar"
-      ],
-      "duration": "2 Day",
-      "startDate": "2026-06-18",
-      "endDate": "2026-06-19",
-      "assignedEmployeeId": "2SS9rVm-sLg",
-      "assignedEmployee": "Arun",
-      "status": "Completed",
-      "isDeleted": false,
-      "id": "Zo0R3K74gPk"
-    },
-    {
-      "courseName": [
         "HTML & CSS",
         "Leadership"
       ],
@@ -252,7 +247,7 @@
       "endDate": "2026-06-22",
       "assignedEmployeeId": "2SS9rVm-sLg",
       "assignedEmployee": "Arun",
-      "status": "Started",
+      "status": "Completed",
       "isDeleted": false,
       "id": "iMwQPxrz4fQ"
     },
@@ -289,6 +284,42 @@
       "isDeleted": false,
       "id": "qvJf0JCRWvI",
       "assignedEmployeeId": "Y3E6pJlYRJY"
+    },
+    {
+      "courseName": [
+        "SQL Server"
+      ],
+      "courseType": "Online",
+      "trainerName": [
+        "Suresh Babu"
+      ],
+      "duration": "3 Day",
+      "startDate": "2026-06-18",
+      "endDate": "2026-06-20",
+      "assignedEmployeeId": "Y3E6pJlYRJY",
+      "assignedEmployee": "Harish",
+      "status": "Not Started",
+      "isDeleted": false,
+      "id": "KycifM5wLuY"
+    },
+    {
+      "courseName": [
+        "Digital Marketing",
+        "Communication Skills"
+      ],
+      "courseType": "Online",
+      "trainerName": [
+        "Priya Sharma",
+        "Sneha Iyer"
+      ],
+      "duration": "10 Day",
+      "startDate": "2026-06-18",
+      "endDate": "2026-06-27",
+      "assignedEmployeeId": "lpPxf5JR2V4",
+      "assignedEmployee": "Tamil",
+      "status": "Not Started",
+      "isDeleted": false,
+      "id": "xEqDl-tlvik"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
