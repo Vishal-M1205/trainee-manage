@@ -469,6 +469,6 @@ This project demonstrates:
 
 **Vishal Manivannan**
 
-Frontend Developer
+Software Engineer
 
 Training Management System Project

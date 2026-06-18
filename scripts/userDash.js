@@ -1,8 +1,19 @@
+/* =====================================================
+   API CONFIGURATION & USER SESSION
+   Stores API endpoints and retrieves the currently
+   logged-in user session.
+===================================================== */
+
 const TRAINING_API = 'http://localhost:3000/training'
 const EMP_API = 'http://localhost:3000/employee'
 const loginSession = JSON.parse(localStorage.getItem('user'));
 console.log(loginSession);
 $('#nav-username').text(loginSession.name);
+
+/* =====================================================
+   USER PROFILE MANAGEMENT
+   Fetches and displays logged-in employee details.
+===================================================== */
 
 async function getUserDetails() {
   const response = await fetch(`${EMP_API}/${loginSession.id}`)
@@ -24,9 +35,29 @@ toastr.options = {
         "showDuration": "300",
         "preventDuplicates": true
       }
+
+/* =====================================================
+   DASHBOARD TAB STATE MANAGEMENT
+   Controls All, Completed, and Filtered views.
+===================================================== */
+
 let allTab = true;
 let compTab = false;
 let filterTab = false;
+
+function refreshTab() {
+    if (allTab) {
+        getAllTrainingRecord();
+    } else if (compTab) {
+        getCompletedTrainingRecord();
+    } else if (filterTab) {
+        applyFilter();
+    }
+}
+
+/* =====================================================
+   FILTER MODAL INITIALIZATION
+===================================================== */
 
 const filterModal = new bootstrap.Modal(
     document.getElementById('filterModal')
@@ -38,6 +69,12 @@ function dateFormat(date){
    return `${newDate[1]} ${newDate[2]},${newDate[3]}`
 
 }
+
+/* =====================================================
+   TRAINING STATISTICS
+   Calculates assigned, completed, started,
+   and pending training counts.
+===================================================== */
 
 async function getCount(data){
     $("#courseCount").text(data.length)
@@ -62,15 +99,10 @@ async function getCount(data){
 }
 getCount();
 
-function refreshTab() {
-    if (allTab) {
-        getAllTrainingRecord();
-    } else if (compTab) {
-        getCompletedTrainingRecord();
-    } else if (filterTab) {
-        applyFilter();
-    }
-}
+/* =====================================================
+   SESSION MANAGEMENT
+   Handles user logout operations.
+===================================================== */
 
 $('#logout').on('click',async ()=>{
     const response = await   Swal.fire({
@@ -85,6 +117,11 @@ $('#logout').on('click',async ()=>{
              window.location.replace('../pages/index.html')
     }
 })
+
+/* =====================================================
+   TRAINING CARD RENDERING
+   Dynamically generates employee training cards.
+===================================================== */
 
 function renderElement(parent,data){
     let html = ``
@@ -177,6 +214,12 @@ function renderElement(parent,data){
   });
 }
 
+/* =====================================================
+   TRAINING DATA RETRIEVAL
+   Loads all active trainings assigned to the
+   logged-in employee.
+===================================================== */
+
 async function getAllTrainingRecord() {
     const response = await fetch(`${TRAINING_API}?assignedEmployeeId=${loginSession.id}&isDeleted=false`)
     const data = await response.json();
@@ -188,6 +231,11 @@ async function getAllTrainingRecord() {
 }
 getAllTrainingRecord();
 
+/* =====================================================
+   COMPLETED TRAINING RETRIEVAL
+   Loads completed trainings assigned to the user.
+===================================================== */
+
 async function getCompletedTrainingRecord() {
     const response = await fetch(`${TRAINING_API}?assignedEmployeeId=${loginSession.id}&status=Completed&isDeleted=false`)
     const data = await response.json();
@@ -197,7 +245,11 @@ async function getCompletedTrainingRecord() {
     
 }
 
-
+/* =====================================================
+   TRAINING DETAILS VIEW
+   Displays complete information for a selected
+   training record.
+===================================================== */
 
 async function viewTraining(id) {
     const response = await fetch(`${TRAINING_API}/${id}`);
@@ -227,6 +279,11 @@ async function viewTraining(id) {
     }
 }
 
+/* =====================================================
+   TRAINING STATUS MANAGEMENT
+   Starts an assigned training.
+===================================================== */
+
 async function startTraining(id){
     const sweetResponse = await Swal.fire({
     title: 'Are you sure you want to start?',
@@ -249,6 +306,12 @@ async function startTraining(id){
     } 
    
 }
+
+/*******************************************************
+ * TRAINING STATUS MANAGEMENT
+ * Marks an ongoing training as completed.
+*******************************************************/
+
 async function completeTraining(id){
     const sweetResponse = await Swal.fire({
     title: 'Are you sure you want to complete?',
@@ -271,6 +334,11 @@ async function completeTraining(id){
     } 
    
 }
+
+/* =====================================================
+   TRAINING TAB NAVIGATION
+   Switches between All and Completed views.
+===================================================== */
 
 $('#completedBtn').on('click',function (){
     $('#allBtn').removeClass('btn-orange-gradinet')
@@ -315,6 +383,11 @@ $('#allBtn').attr('disabled',false)
 $('#completedBtn').attr('disabled',false)
 
 })
+
+/* =====================================================
+   TRAINING FILTERING
+   Retrieves training records matching filter criteria.
+===================================================== */
 
 async function applyFilter() {
     const status = $('#filterStatus').val();

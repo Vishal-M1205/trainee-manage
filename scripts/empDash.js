@@ -1,3 +1,8 @@
+/* =====================================================
+   API ENDPOINTS & SESSION MANAGEMENT
+   Stores API URLs and retrieves logged-in user data.
+===================================================== */
+
 const EMP_API = 'http://localhost:3000/employee'
 const TRAINER_API = 'http://localhost:3000/trainer'
 const COU_API = 'http://localhost:3000/course'
@@ -5,6 +10,11 @@ const TRAINING_API = 'http://localhost:3000/training'
 const loginSession = JSON.parse(localStorage.getItem('user'));
 console.log(loginSession);
 $('#nav-username').text(loginSession.name);
+
+/* =====================================================
+   DASHBOARD TAB STATE MANAGEMENT
+   Controls All, Completed, and Filtered views.
+===================================================== */
 
 let allTab = true;
 let compTab = false;
@@ -20,11 +30,20 @@ function refreshTab() {
     }
 }
 
+/* =====================================================
+   TOAST NOTIFICATION CONFIGURATION
+===================================================== */
+
 toastr.options = {
         "positionClass": "toast-bottom-right",
         "showDuration": "300",
         "preventDuplicates": true
       }
+
+/* =====================================================
+   BOOTSTRAP MODAL INITIALIZATION
+   Assign, Filter, and Update Training modals.
+===================================================== */
 
 const assignModal = new bootstrap.Modal(
     document.getElementById('assignModal')
@@ -36,6 +55,7 @@ const updateModalDialog = new bootstrap.Modal(
     document.getElementById('updateModal')
 )
 
+//Changes the date format from digits to string
 function dateFormat(date){
   let newDate = new Date(date)
   newDate = newDate.toDateString().split(" ")
@@ -43,7 +63,7 @@ function dateFormat(date){
 
 }
 
-
+//Used to get days between two dates
 function getDaysBetween(startDate, endDate) {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -52,11 +72,10 @@ function getDaysBetween(startDate, endDate) {
     return Math.floor(diffInMs / (1000 * 60 * 60 * 24)) + 1;
 }
 
-function isDuplicateCourse(existingCourses, newCourse) {
-    return existingCourses.some(
-        course => course.toLowerCase().trim() === newCourse.toLowerCase().trim()
-    )
-}
+
+/* =====================================================
+   USER SESSION & LOGOUT MANAGEMENT
+===================================================== */
 
 $('#logout').on('click',async ()=>{
     const response = await   Swal.fire({
@@ -73,7 +92,10 @@ $('#logout').on('click',async ()=>{
 })
 
 
-
+/* =====================================================
+   DASHBOARD STATISTICS
+   Fetches employee, trainer, and course counts.
+===================================================== */
 async function getCount(){
     const empResp = await fetch(`${EMP_API}?role=employee`,{
         method:'GET'
@@ -93,6 +115,10 @@ async function getCount(){
 }
 getCount();
 
+/* =====================================================
+   TRAINING ANALYTICS
+   Calculates training status counts and progress bars.
+===================================================== */
 async function getStats(data) {
     $('#totalAssign').text(data.length)
     let completedCount = 0;
@@ -119,6 +145,11 @@ async function getStats(data) {
 
 }
 
+/* =====================================================
+   TRAINING ASSIGNMENT MODAL
+   Loads courses, trainers, employees, and initializes
+   Choices.js multi-select components.
+===================================================== */
 $('#assignModalBtn').on(('click'),async ()=>{
    const courseResponse = await fetch(COU_API);
    const courseData = await courseResponse.json()
@@ -166,6 +197,10 @@ $('#assignModalBtn').on(('click'),async ()=>{
    $('#endDate').attr('min',today)
 })
 
+/* =====================================================
+   TRAINING UPDATE OPERATIONS
+   Loads existing training data and updates records.
+===================================================== */
 async function updateModal(id){
    const response = await fetch(`${TRAINING_API}?id=${id}`)
    const data = await response.json()
@@ -321,7 +356,11 @@ const response = await  Swal.fire({
 
 })
 
-   
+   /* =====================================================
+   CHOICES.JS SELECT INPUT CLEAR FUNCTION
+  .destroy() and .removeActiveItems() are used to clear the 
+  selected elements
+===================================================== */
 
    $('#updateModal').on('hidden.bs.modal', function () {
      currentCourse.removeActiveItems();
@@ -336,7 +375,10 @@ const response = await  Swal.fire({
 }
 
 
-
+/* =====================================================
+   NEW TRAINING ASSIGNMENT
+   Validates and assigns training to employees.
+===================================================== */
 
 
 $('#assignSubmit').on('click',async (e)=>{
@@ -428,6 +470,11 @@ if (duplicateCourses.length > 0) {
 }
 })
 
+/* =====================================================
+   TRAINING DETAILS VIEW
+   Displays complete training information.
+===================================================== */
+
 async function viewTraining(id) {
     const response = await fetch(`${TRAINING_API}/${id}`);
     const data = await response.json();
@@ -456,6 +503,11 @@ async function viewTraining(id) {
     }
 }
 
+/* =====================================================
+   SOFT DELETE OPERATIONS
+   Marks training records as deleted.
+===================================================== */
+
 async function deleteTraining(id){
   const response = await  Swal.fire({
     title: 'Are you sure you want to delete?',
@@ -478,6 +530,11 @@ async function deleteTraining(id){
     refreshTab();
  }
 }
+
+/* =====================================================
+   TRAINING CARD RENDERING
+   Dynamically generates training cards.
+===================================================== */
 
 function renderElement(parent,data){
     let html = ``
@@ -515,6 +572,11 @@ ${t.status === 'Not Started'
   });
 }
 
+/* =====================================================
+   TRAINING DATA RETRIEVAL
+   Fetches all active training records.
+===================================================== */
+
 async function getAllTrainingRecord(){
   const response = await fetch(`${TRAINING_API}?isDeleted=false`)
   const data = await response.json();
@@ -528,6 +590,10 @@ async function getAllTrainingRecord(){
 
 getAllTrainingRecord();
 
+/* =====================================================
+   COMPLETED TRAINING RETRIEVAL
+===================================================== */
+
 async function getCompletedTrainingRecord(){
   const response = await fetch(`${TRAINING_API}?status=Completed&isDeleted=false`)
   const data = await response.json();
@@ -538,6 +604,11 @@ async function getCompletedTrainingRecord(){
   trainParent.replaceChildren();
  renderElement(trainParent,data.reverse())
 }
+
+/* =====================================================
+   TRAINING FILTERING
+   Filters records by status and date range.
+===================================================== */
 
 async function applyFilter() {
     const status = $('#filterStatus').val();
@@ -560,6 +631,12 @@ async function applyFilter() {
     renderElement(document.getElementById('train-parent'), data);
 }
 
+
+/* =====================================================
+   FILTER ACTIONS
+   Apply and clear filter operations.
+===================================================== */
+
 $('#filterApplyBtn').on('click',  () => {
       if($("#filterStatus").val()==" "&&!$("#filterStart").val()&&!$("#filterEnd").val()){
          toastr.warning('Atleat Appy One Filter!')
@@ -569,6 +646,12 @@ $('#filterApplyBtn').on('click',  () => {
     filterModal.hide();
 $('#clrFilter').removeClass('d-none');
 $('#allBtn').attr('disabled',true)
+
+/* =====================================================
+   TRAINING TAB NAVIGATION
+   Switches between All and Completed training views.
+===================================================== */
+
 $('#completedBtn').attr('disabled',true)
     allTab = false;
     compTab = false;
@@ -602,6 +685,11 @@ filterTab = false
 refreshTab()
 })
 
+/* =====================================================
+   PERMANENT DELETE OPERATIONS
+   Removes training records permanently.
+===================================================== */
+
 async function deleteTrainingPermanent(id) {
      const response = await  Swal.fire({
     title: 'Are you sure you want to delete permanently?',
@@ -619,6 +707,11 @@ async function deleteTrainingPermanent(id) {
     refreshTab();
  }
 }
+
+/* =====================================================
+   TRAINING HISTORY MANAGEMENT
+   Displays and manages soft-deleted records.
+===================================================== */
 
 $("#histBtn").on('click', async () => {
     const response = await fetch(`${TRAINING_API}?isDeleted=true`);
@@ -659,6 +752,11 @@ $("#histBtn").on('click', async () => {
     parent.innerHTML = html;
 });
 
+/* =====================================================
+   TRAINING RESTORATION
+   Restores previously deleted training records.
+===================================================== */
+
 async function restoreTraining(id) {
 
      const sweetResponse = await   Swal.fire({
@@ -689,6 +787,10 @@ async function restoreTraining(id) {
     
 }
 
+/* =====================================================
+   USER PROFILE MANAGEMENT
+   Loads logged-in administrator profile details.
+===================================================== */
 
 async function getUserDetails() {
   const response = await fetch(`${EMP_API}/${loginSession.id}`)

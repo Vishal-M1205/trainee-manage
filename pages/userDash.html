@@ -37,6 +37,14 @@
         </nav>
     </header>
     <main>
+    
+<!-- =====================================================
+     DASHBOARD STATISTICS SECTION
+     Displays assigned, completed, started, and
+     pending training counts for the employee.
+===================================================== -->
+
+
         <section class="count container mt-5">
             <div class="row g-2 mx-lg-4">
                 <div class="col-xl-3 col-md-6">
@@ -90,6 +98,11 @@
               
             </div>
         </section>
+         <!-- =====================================================
+     TRAINING RECORDS SECTION
+     Displays all assigned trainings with filtering,
+     status updates, and view actions.
+===================================================== -->
      
     <section class="container training mt-4 mb-5">
         <div class="row g-3 mx-lg-4">
@@ -97,6 +110,11 @@
     <div class="container-fluid bg-light-subtle rounded-4 border-blue py-3">
 <div class="d-flex justify-content-between align-items-center">
         <p class="m-0 fs-3 fw-semibold">Training Records</p>
+       <!-- =====================================================
+     TRAINING ACTION CONTROLS
+     Filter, clear filter, all records, and completed
+     records navigation controls.
+===================================================== -->
                <div>
                 <div class="btn-group">
                <button class="btn btn-blue" data-bs-toggle="modal" data-bs-target="#filterModal">Filter</button>
@@ -107,6 +125,11 @@
         <button class="btn " id="completedBtn">Completed</button>
                </div>
                 </div>
+                <!-- =====================================================
+     TRAINING RECORD CONTAINER
+     Training cards are rendered dynamically through
+     JavaScript.
+===================================================== -->
                 <div class="training-parent mt-5 row g-2" id="training-parent">
                     
                     
@@ -117,6 +140,12 @@
        </div>
         </div>
     </section>
+
+    <!-- =====================================================
+     TRAINING DETAILS MODAL
+     Displays complete information about a selected
+     training assignment.
+===================================================== -->
 
 <div class="modal fade" id="viewModal" >
   <div class="modal-dialog modal-lg">
@@ -177,6 +206,12 @@
   </div>
 </div>
 
+<!-- =====================================================
+     TRAINING FILTER MODAL
+     Allows filtering by training status and date
+     range.
+===================================================== -->
+
    <div class="modal fade" id="filterModal">
               <div class="modal-dialog ">
                <div class="modal-content">
@@ -204,6 +239,12 @@
           </div>
 
     </main>
+
+    <!-- =====================================================
+     USER PROFILE OFFCANVAS
+     Displays logged-in employee profile information.
+===================================================== -->
+
  <div class="offcanvas offcanvas-start" id="userOffcanvas">
     <div class="offcanvas-header border-bottom">
         <h5 class="offcanvas-title">User Details</h5>

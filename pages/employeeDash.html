@@ -19,6 +19,7 @@
 </head>
 <body>
     <header>
+      <!-- Navbar Section --->
         <nav class="navbar navbar-expand-lg ">
            <div class="navbar-brand ms-4  ">
                 <h5 class="navbar-text m-0 fw-semibold"><span class="bi bi-union me-2"></span>Training Management System</h4>
@@ -36,6 +37,11 @@
         </nav>
     </header>
     <main>
+      <!-- =====================================================
+     DASHBOARD STATISTICS SECTION
+     Displays training progress metrics, employee count,
+     trainer count, and course count.
+===================================================== -->
         <section class="stats container mt-5" >
            <div class="row g-3 mx-lg-4">
                <div class="col-lg-8 col-12"  >
@@ -129,11 +135,20 @@
                </div>
            </div>
         </section>
-
-
+<!-- =====================================================
+     TRAINING MANAGEMENT SECTION
+     Contains training records, filters, assignment,
+     history, and training actions.
+===================================================== -->
 
         <section class="details container mt-4 mb-5 " >
                <div class="row g-3 mx-lg-4" >
+                <!-- =====================================================
+     TRAINING ACTION CONTROLS
+     Filter, clear filter, all records, and completed
+     records navigation controls.
+===================================================== -->
+
                  <div class="col-lg-2">
        <div class="container-fluid border-orange rounded-4 shadow-sm bg-light-subtle d-flex flex-lg-column flex-row align-items-center justify-content-center  py-3 sticky-top" style="top: 2%;">
   
@@ -157,6 +172,11 @@
                   <button class="btn btn-blue" data-bs-toggle="modal" data-bs-target="#assignModal" id="assignModalBtn" >Assign +</button>
                  </div>
                 </div>
+<!-- =====================================================
+     TRAINING HISTORY MODAL
+     Displays soft-deleted training records and
+     provides restore/delete actions.
+===================================================== -->
       <div class="modal fade" id="histModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -173,6 +193,11 @@
         </div>
     </div>
 </div>
+<!-- =====================================================
+     ASSIGN TRAINING MODAL
+     Allows administrators to assign courses,
+     trainers, employees, and schedule dates.
+===================================================== -->
                   <div class="modal fade" id="assignModal">
                       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                           <div class="modal-content px-3 py-2">
@@ -200,16 +225,7 @@
                                 <option value="Online">Online</option>
                                </select>
 
-                               <!-- <label class="form-label mt-3" for="duration">Set the duration</label>
-                               <div class="input-group">
-                                   <input class="form-control" type="number" id="durationNum">
-                                   <select class="form-select" name="duration" id="duration" style="max-width: 120px;" >
-                                    <option value="Hour">Hour</option>
-                                    <option value="Week">Week</option>
-                                    <option value="Month">Month</option>
-                                    <option value="Year">Year</option>
-                                   </select>
-                               </div> -->
+                             
                                <label class="form-label mt-3" for="startDate">Start Date</label>
                                <input class="form-control" type="date" id="startDate" onkeydown="return false;"  >
                                <label class="form-label mt-3" for="endDate">End Date</label>
@@ -223,6 +239,10 @@
                           </div>  
                       </div>
                   </div>
+<!-- =====================================================
+     UPDATE TRAINING MODAL
+     Used to edit existing training assignments.
+===================================================== -->
 
                    <div class="modal fade" id="updateModal">
                       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -269,7 +289,13 @@
 
                       </div>
                   </div>
-               
+
+<!-- =====================================================
+     TRAINING DETAILS MODAL
+     Displays complete information about a selected
+     training assignment.
+===================================================== -->
+
 <div class="modal fade" id="viewModal" >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -328,6 +354,10 @@
     </div>
   </div>
 </div>
+<!-- =====================================================
+     PARENT SECTION
+   parent for the training cards which is dynamically typed using JS.
+===================================================== -->
                 <div class="train-parent mt-5 row g-2" id="train-parent">
                     
                     
@@ -340,6 +370,11 @@
                </div>
         </section>
     </main>
+
+<!-- =====================================================
+     FILTER MODAL
+     Filters training records by status and date range.
+===================================================== -->
 
 <div class="modal fade" id="filterModal">
               <div class="modal-dialog ">
@@ -367,7 +402,10 @@
               </div>
           </div>
 
-
+<!-- =====================================================
+     USER PROFILE OFFCANVAS
+     Displays logged-in employee information.
+===================================================== -->
     <div class="offcanvas offcanvas-start" id="userOffcanvas">
     <div class="offcanvas-header border-bottom">
         <h5 class="offcanvas-title">User Details</h5>

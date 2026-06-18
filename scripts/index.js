@@ -1,9 +1,24 @@
+/* =====================================================
+   FORM VALIDATION PATTERNS
+   Regular expressions used for validating user input.
+===================================================== */
 const emailRegex = /^[^\s@A-Z]+@[^\s@A-Z]+\.[^\s@A-Z]{2,}$/;
 const nameRegex = /^[A-Za-z\s]{3,}$/;
 const passRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9\s]).{8,15}$/
 const dateRegex = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/
+
+/* =====================================================
+   FORM VALIDATION STATE
+   Tracks signup and login validation status.
+===================================================== */
+
 let signupValid = false;
 let loginValid = false;
+
+/* =====================================================
+   MODAL INITIALIZATION
+   Bootstrap login and signup modals.
+===================================================== */
 
 const signupModal = new bootstrap.Modal(document.getElementById('signUpModal'))
 const loginModal = new bootstrap.Modal(document.getElementById('loginModal'))
@@ -11,6 +26,11 @@ const loginModal = new bootstrap.Modal(document.getElementById('loginModal'))
 const EMP_API = 'http://localhost:3000/employee'
 
 const today = new Date();
+
+/* =====================================================
+   AGE RESTRICTION CONFIGURATION
+   Restricts registration to users aged 18+
+===================================================== */
 
 today.setFullYear(today.getFullYear() - 18);
 
@@ -23,6 +43,11 @@ toastr.options = {
         "showDuration": "300",
         "preventDuplicates": true
       }
+
+/* =====================================================
+   VALIDATION HELPER FUNCTIONS
+   Applies Bootstrap valid/invalid feedback styles.
+===================================================== */
 
 const addInValidClass = function (msg,eleID,msgID){
   $(msgID).text(msg)
@@ -41,6 +66,10 @@ const addValidClass = function(msg,eleID,msgID){
           $(msgID).removeClass('invalid-feedback');
 }
 
+/* =====================================================
+   SIGNUP FORM FIELD VALIDATIONS
+   Real-time validation for registration fields.
+===================================================== */
 
 $('#email').on('input',function(){
   if(emailRegex.test($(this).val())){
@@ -93,6 +122,8 @@ $('#dob').on('input',function(){
   }
 })
 
+
+
 $('#logemail').on('input',function(){
   if(emailRegex.test($(this).val())){
      addValidClass('Valid Email','#logemail','#logEmailErrMsg');
@@ -103,6 +134,12 @@ $('#logemail').on('input',function(){
     loginValid = false;
   }
 })
+
+/* =====================================================
+   USER AUTHENTICATION
+   Handles login verification, session creation,
+   and role-based redirection.
+===================================================== */
 
 $('#login').on('click', async (e)=>{
     e.preventDefault();
@@ -156,6 +193,11 @@ $('#login').on('click', async (e)=>{
     }
 })
 
+/* =====================================================
+   USER REGISTRATION
+   Validates form data and creates new employee
+   accounts in the system.
+===================================================== */
 
 $('#signup').on('click',async (e)=>{
     e.preventDefault();
