@@ -100,6 +100,14 @@ $('#pass').on('input',function(){
     addInValidClass('Invalid password. Password must be 8–15 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.  ','#pass','#passErrMsg');
     signupValid = false;
   }
+  if($(this).val() == $('#cpass').val()){
+     addValidClass('Password Matched','#cpass','#cpassErrMsg');
+     signupValid = true;
+  }
+  else{
+    addInValidClass('Password not matched','#cpass','#cpassErrMsg');
+    signupValid = false;
+  }
 })
 $('#cpass').on('input',function(){
   if($(this).val() == $('#pass').val()){
